@@ -1,16 +1,20 @@
 {
   "files": {
-    "main.css": "/f2e-w2-freecell/static/css/main.2cce8147.chunk.css",
-    "main.js": "/f2e-w2-freecell/static/js/main.1e110507.chunk.js",
-    "main.js.map": "/f2e-w2-freecell/static/js/main.1e110507.chunk.js.map",
+    "main.css": "/f2e-w2-freecell/static/css/main.785828dd.chunk.css",
+    "main.js": "/f2e-w2-freecell/static/js/main.3c41fcaf.chunk.js",
+    "main.js.map": "/f2e-w2-freecell/static/js/main.3c41fcaf.chunk.js.map",
     "runtime~main.js": "/f2e-w2-freecell/static/js/runtime~main.2e5c3c8b.js",
     "runtime~main.js.map": "/f2e-w2-freecell/static/js/runtime~main.2e5c3c8b.js.map",
-    "static/js/2.b41502e9.chunk.js": "/f2e-w2-freecell/static/js/2.b41502e9.chunk.js",
-    "static/js/2.b41502e9.chunk.js.map": "/f2e-w2-freecell/static/js/2.b41502e9.chunk.js.map",
+    "static/js/2.c7f2dccf.chunk.js": "/f2e-w2-freecell/static/js/2.c7f2dccf.chunk.js",
+    "static/js/2.c7f2dccf.chunk.js.map": "/f2e-w2-freecell/static/js/2.c7f2dccf.chunk.js.map",
     "index.html": "/f2e-w2-freecell/index.html",
-    "precache-manifest.7bc0ff26c4221c129a43060fafd7305b.js": "/f2e-w2-freecell/precache-manifest.7bc0ff26c4221c129a43060fafd7305b.js",
+    "precache-manifest.8ec86d531a6b0dafd906c190166d6573.js": "/f2e-w2-freecell/precache-manifest.8ec86d531a6b0dafd906c190166d6573.js",
     "service-worker.js": "/f2e-w2-freecell/service-worker.js",
-    "static/css/main.2cce8147.chunk.css.map": "/f2e-w2-freecell/static/css/main.2cce8147.chunk.css.map",
-    "static/media/logo.svg": "/f2e-w2-freecell/static/media/logo.5d5d9eef.svg"
+    "static/css/main.785828dd.chunk.css.map": "/f2e-w2-freecell/static/css/main.785828dd.chunk.css.map",
+    "static/media/black_q.svg": "/f2e-w2-freecell/static/media/black_q.c17de8ed.svg",
+    "static/media/card_bg.svg": "/f2e-w2-freecell/static/media/card_bg.5b37f197.svg",
+    "static/media/cardtype_1s.svg": "/f2e-w2-freecell/static/media/cardtype_1s.0f1de3bb.svg",
+    "static/media/logo.svg": "/f2e-w2-freecell/static/media/logo.ee7cd8ed.svg",
+    "static/media/num_12.svg": "/f2e-w2-freecell/static/media/num_12.4f945f02.svg"
   }
 }

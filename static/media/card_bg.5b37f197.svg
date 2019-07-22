@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="135" height="140" viewBox="0 0 135 140">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.051" y1="0.073" x2="1.101" y2="1.072" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f8ecff"/>
+      <stop offset="0.548" stop-color="#ebf5ff"/>
+      <stop offset="1" stop-color="#dff"/>
+    </linearGradient>
+  </defs>
+  <g id="card_bg" transform="translate(1457.173 -350.945)">
+    <rect id="Rectangle_211" data-name="Rectangle 211" width="135" height="140" rx="16" transform="translate(-1457.173 350.945)" fill="url(#linear-gradient)"/>
+  </g>
+</svg>
