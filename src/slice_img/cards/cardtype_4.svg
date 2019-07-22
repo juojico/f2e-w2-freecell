@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="77" height="84.237" viewBox="0 0 77 84.237">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.12" x2="0.5" y2="1.047" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e50056"/>
+      <stop offset="1" stop-color="#bf003c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.395" y1="0.064" x2="0.988" y2="1.111" gradientUnits="objectBoundingBox">
+      <stop offset="0.001" stop-color="#ff3657"/>
+      <stop offset="0.245" stop-color="#f52557"/>
+      <stop offset="0.721" stop-color="#e50a57"/>
+      <stop offset="1" stop-color="#e00057"/>
+    </linearGradient>
+  </defs>
+  <g id="cardtype_4" transform="translate(-100.622 -232.703)">
+    <path id="Path_972" data-name="Path 972" d="M139.122,232.7l38.424,42.077h.076l-.038.042.038.042h-.076L139.122,316.94Z" fill="url(#linear-gradient)"/>
+    <path id="Path_973" data-name="Path 973" d="M139.122,232.7,100.7,274.78h-.076l.038.042-.038.042h.076l38.424,42.077Z" fill="url(#linear-gradient-2)"/>
+  </g>
+</svg>
