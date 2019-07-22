@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/f2e-w2-freecell/static/css/main.2cce8147.chunk.css",
+    "main.js": "/f2e-w2-freecell/static/js/main.1e110507.chunk.js",
+    "main.js.map": "/f2e-w2-freecell/static/js/main.1e110507.chunk.js.map",
+    "runtime~main.js": "/f2e-w2-freecell/static/js/runtime~main.2e5c3c8b.js",
+    "runtime~main.js.map": "/f2e-w2-freecell/static/js/runtime~main.2e5c3c8b.js.map",
+    "static/js/2.b41502e9.chunk.js": "/f2e-w2-freecell/static/js/2.b41502e9.chunk.js",
+    "static/js/2.b41502e9.chunk.js.map": "/f2e-w2-freecell/static/js/2.b41502e9.chunk.js.map",
+    "index.html": "/f2e-w2-freecell/index.html",
+    "precache-manifest.7bc0ff26c4221c129a43060fafd7305b.js": "/f2e-w2-freecell/precache-manifest.7bc0ff26c4221c129a43060fafd7305b.js",
+    "service-worker.js": "/f2e-w2-freecell/service-worker.js",
+    "static/css/main.2cce8147.chunk.css.map": "/f2e-w2-freecell/static/css/main.2cce8147.chunk.css.map",
+    "static/media/logo.svg": "/f2e-w2-freecell/static/media/logo.5d5d9eef.svg"
+  }
+}
