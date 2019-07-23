@@ -24,6 +24,7 @@ const ControllerBg = styled.div`
   height: 72px;
   bottom: 0;
   left: 50%;
+  margin-bottom: ${props=>props.hidden?'-150px':'0'};
   border-radius: 20px 20px 0 0;
   background: linear-gradient(
     135deg,
@@ -33,6 +34,7 @@ const ControllerBg = styled.div`
   background-size: 200%;
   box-shadow: 0 -10px 25px rgba(47, 43, 54, 0.8);
   transform: translate(-50%);
+  transition: .5s;
   animation: ${colorMove} 3s alternate infinite;
 `;
 
@@ -41,9 +43,11 @@ const ControllBtn = styled.div`
     height: 72px;
     background-image: url(${props=>props.icon});
     cursor: pointer;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .2));
     transition: .2s;
     &:hover {
-        background-color: rgba(255, 255, 255, 0.05);
+      margin-top: -4px;
+      filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, .8));
     }
 `
 
@@ -59,11 +63,14 @@ const UndoBtn = styled.div`
     &:hover {
         margin-top: -90px;
     }
+    &>div {
+      margin-top: 44%;
+    }
 `
 
-const Controller = ({ onStop,onPause,onUndo,onRestart,onTips }) => {
+const Controller = ({ onStop,onPause,onUndo,onRestart,onTips,hidden }) => {
   return (
-    <ControllerBg>
+    <ControllerBg hidden={hidden}>
         <ControllBtn icon={stop} onClick={onStop}></ControllBtn>
         <ControllBtn icon={pause} onClick={onPause}></ControllBtn>
         <UndoBtn onClick={onUndo}><Button text={'UNDO'} /></UndoBtn>

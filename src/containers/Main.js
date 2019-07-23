@@ -4,6 +4,7 @@ import Cards from "../components/Cards";
 import NavTop from "../components/NavTop";
 import CardBox from "../components/CardBox";
 import Controller from "../components/Controller";
+import Dialog from "../components/Dialog";
 
 const POKER = [];
 for (let t = 1; t <= 4; t++) {
@@ -15,7 +16,9 @@ for (let t = 1; t <= 4; t++) {
   }
 }
 
-POKER.sort(() => 0.5 - Math.random());
+const DIFFICULT = 0.3;
+
+POKER.sort(() => DIFFICULT - Math.random());
 console.log("TCL: POKER", POKER);
 
 const MainContainer = styled.div`
@@ -26,10 +29,10 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 `;
 const CardsTable = styled.div`
   position: relative;
-  background: #2c2b50;
   width: 100%;
   height: 100%;
   display: flex;
@@ -37,6 +40,9 @@ const CardsTable = styled.div`
   align-items: start;
   flex-direction: column;
   overflow-x: auto;
+  transition: 0.5s ease-in-out;
+  filter: ${props => (props.blur ? "blur(6px)" : "none")};
+  opacity: ${props => (props.blur ? "0.5" : "1")};
 `;
 const CardArea = styled.div`
   position: relative;
@@ -53,8 +59,21 @@ class Main extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      difficult: DIFFICULT,
       time: 0,
-      step: 0,
+      move: 0,
+      isdialogOpen: false,
+      dialog: {
+        text: "",
+        btn1Text: "取消",
+        btn2Text: "確定",
+        btn1Click: () => false,
+        btn2Click: () => false,
+        btn1Type: "",
+        btn2Type: "",
+        only: false
+      },
+      isPlaying: true,
       originPoker: POKER,
       storage1: [],
       storage2: [],
@@ -79,29 +98,105 @@ class Main extends React.PureComponent {
 
   componentDidMount() {
     console.log(this.state);
+    this.state.isPlaying ? this.play() : this.pause();
+  }
+  play() {
+    const intervalId = setInterval(() => {
+      this.setState({ time: this.state.time + 1 });
+    }, 1000);
+    this.setState({ intervalId });
+  }
+
+  pause() {
+    clearInterval(this.state.intervalId);
   }
 
   onStop() {
+    this.setState({
+      dialog: {
+        text: "是否放棄本局？",
+        btn1Text: "取消",
+        btn2Text: "確定",
+        btn1Click: () => this.onCloseDialog(),
+        btn2Click: () => this.onCloseDialog(),
+        only: false
+      },
+      isdialogOpen: true
+    });
     console.log("onStop");
   }
   onPause() {
+    this.pause();
+    this.setState({
+      dialog: {
+        text: "時間暫停中",
+        btn1Text: "回到遊戲",
+        btn1Click: () => this.backToGame(),
+        only: true
+      },
+      isdialogOpen: true
+    });
     console.log("onPause");
+  }
+  backToGame() {
+    this.play();
+    this.onCloseDialog();
   }
   onUndo() {
     console.log("onUndo");
   }
   onRestart() {
+    this.setState({
+      dialog: {
+        text: "是否重新本局？",
+        btn1Text: "取消",
+        btn2Text: "確定",
+        btn1Click: () => this.onCloseDialog(),
+        btn2Click: () => this.onCloseDialog(),
+        only: false
+      },
+      isdialogOpen: true
+    });
     console.log("onRestart");
   }
   onTips() {
+    this.setState({
+      dialog: {
+        text: "提示",
+        btn1Text: "關閉",
+        btn1Click: () => this.onCloseDialog(),
+        only: true
+      },
+      isdialogOpen: true
+    });
     console.log("onTips");
+  }
+
+  onCloseDialog() {
+    this.setState({
+      isdialogOpen: false
+    });
+    console.log("onCloseDialog");
   }
 
   render() {
     return (
       <MainContainer>
-        <NavTop />
-        <CardsTable>
+        <Dialog
+          open={this.state.isdialogOpen}
+          text={"Congratulations! You Won the Game."}
+          btn1Click={() => this.onCloseDialog()}
+          text={this.state.dialog.text}
+          btn1Text={this.state.dialog.btn1Text}
+          btn2Text={this.state.dialog.btn2Text}
+          btn1Click={this.state.dialog.btn1Click}
+          btn2Click={this.state.dialog.btn2Click}
+          btn1Type={this.state.dialog.btn1Type}
+          btn2Type={this.state.dialog.btn2Type}
+          only={this.state.dialog.only}
+        />
+        <NavTop time={this.state.time} move={this.state.move} />
+        <CardsTable blur={this.state.isdialogOpen}>
           <CardArea>
             <CardBox />
             <CardBox />
@@ -127,6 +222,7 @@ class Main extends React.PureComponent {
           </CardArea>
         </CardsTable>
         <Controller
+          hidden={this.state.isdialogOpen}
           onStop={() => this.onStop()}
           onPause={() => this.onPause()}
           onUndo={() => this.onUndo()}
