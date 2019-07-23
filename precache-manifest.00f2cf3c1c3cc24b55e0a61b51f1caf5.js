@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a952922ca4d0fa0e9c1fb0cb3a571da1",
+    "revision": "2eab4cc0e5ac8f4d8c1532f379b67669",
     "url": "/f2e-w2-freecell/index.html"
   },
   {
-    "revision": "c44cc3170de23450f56d",
+    "revision": "b850efb9f059af15e7c7",
     "url": "/f2e-w2-freecell/static/css/main.fbd98757.chunk.css"
   },
   {
-    "revision": "461b8d47c7b10ffd1c73",
-    "url": "/f2e-w2-freecell/static/js/2.074e2823.chunk.js"
+    "revision": "37028653b4da219f2892",
+    "url": "/f2e-w2-freecell/static/js/2.b379db8f.chunk.js"
   },
   {
-    "revision": "c44cc3170de23450f56d",
-    "url": "/f2e-w2-freecell/static/js/main.4167a9a7.chunk.js"
+    "revision": "b850efb9f059af15e7c7",
+    "url": "/f2e-w2-freecell/static/js/main.a61eac55.chunk.js"
   },
   {
     "revision": "a61f2c53eb0dfd7317fc",
@@ -90,6 +90,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "4c602328094e6f2198244d52dbb0fda4",
     "url": "/f2e-w2-freecell/static/media/icons_undo.4c602328.svg"
+  },
+  {
+    "revision": "c9d2df2b241207cad1026b93d8d54aa7",
+    "url": "/f2e-w2-freecell/static/media/img_castle.c9d2df2b.svg"
   },
   {
     "revision": "5fba9532f9bff021d0ff4077b1bf0ec1",
@@ -174,5 +178,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "c77297d68e4892d5d8bffb98aa8e0a38",
     "url": "/f2e-w2-freecell/static/media/red_q.c77297d6.svg"
+  },
+  {
+    "revision": "ce4649fff4c255292049902ece812fbf",
+    "url": "/f2e-w2-freecell/static/media/startpage_bg.ce4649ff.jpg"
   }
 ]);
