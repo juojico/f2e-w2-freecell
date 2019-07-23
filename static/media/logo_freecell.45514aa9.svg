@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="173.195" height="31.045" viewBox="0 0 173.195 31.045">
+  <g id="logo_freecell" transform="translate(-46.5 -14.695)">
+    <path id="Path_15" data-name="Path 15" d="M296.718,101.81h-4.426V72.444h12.6v4.449h-8.173V84.9h5.972v4.449h-5.972Z" transform="translate(-245.292 -56.944)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_16" data-name="Path 16" d="M389.271,72.539q3.7,0,5.433,2.037a7.405,7.405,0,0,1,1.522,4.965V83.8a6.857,6.857,0,0,1-2.365,5.269l3.278,12.81h-4.786l-2.684-11.054h-2.951v11.054h-4.426V72.539Zm2.646,7.072a2.246,2.246,0,0,0-2.529-2.553h-2.67v9.391h2.67a2.419,2.419,0,0,0,1.792-.749,2.478,2.478,0,0,0,.738-1.8Z" transform="translate(-313.055 -57.016)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_17" data-name="Path 17" d="M484.423,101.81V72.444h12.6v4.449h-8.173V84.9h5.971v4.449h-5.971v8.009h8.173v4.449Z" transform="translate(-389.951 -56.944)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_18" data-name="Path 18" d="M574.422,101.81V72.444h12.6v4.449h-8.173V84.9h5.972v4.449h-5.972v8.009h8.173v4.449Z" transform="translate(-457.712 -56.944)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_19" data-name="Path 19" d="M671.449,101.257a7,7,0,0,1-7.025-7V78.238a7.014,7.014,0,1,1,14.027,0v3.349h-4.59V78.144a2.558,2.558,0,0,0-2.552-2.553,2.421,2.421,0,0,0-1.792.749,2.48,2.48,0,0,0-.737,1.8V94.209a2.519,2.519,0,0,0,2.529,2.529,2.478,2.478,0,0,0,1.8-.738,2.418,2.418,0,0,0,.749-1.791V90.157h4.59v4.1a7,7,0,0,1-7,7Z" transform="translate(-525.476 -56.017)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_20" data-name="Path 20" d="M762.573,101.81V72.444h12.6v4.449H767V84.9h5.972v4.449H767v8.009h8.173v4.449Z" transform="translate(-599.375 -56.944)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_21" data-name="Path 21" d="M864.634,101.882H852.573V72.539H857v24.94h7.635Z" transform="translate(-667.137 -57.016)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path_22" data-name="Path 22" d="M952.453,101.882h-12.06V72.539h4.426v24.94h7.634Z" transform="translate(-733.258 -57.016)" fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="1"/>
+  </g>
+</svg>

@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="135" height="140" viewBox="0 0 135 140">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_298" data-name="Rectangle 298" width="135" height="140" rx="16" transform="translate(-226.622 666.263)" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="-0.185" y1="1.109" x2="1.48" y2="0.253" gradientUnits="objectBoundingBox">
+      <stop offset="0.176" stop-color="#ffe6e6"/>
+      <stop offset="1" stop-color="#fad8c2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="-0.331" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="0.452" y1="0.148" x2="1.163" y2="1.101" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fad8c2"/>
+      <stop offset="1" stop-color="#ffcdba"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.507" y1="0.838" x2="0.491" y2="0.113" gradientUnits="objectBoundingBox">
+      <stop offset="0.001" stop-color="#f4c5ac"/>
+      <stop offset="0.176" stop-color="#f2bfa4"/>
+      <stop offset="0.581" stop-color="#f0b798"/>
+      <stop offset="1" stop-color="#f0b595"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="12.783" y1="712.183" x2="61.959" y2="3563.684" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#392199"/>
+      <stop offset="0.228" stop-color="#522199"/>
+      <stop offset="0.711" stop-color="#942199"/>
+      <stop offset="1" stop-color="#be2199"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="-1723.392" y1="-3990.483" x2="1724.075" y2="3989.765" xlink:href="#linear-gradient-5"/>
+    <linearGradient id="linear-gradient-7" x1="-25.811" y1="-1710.64" x2="23.365" y2="1486.497" xlink:href="#linear-gradient-5"/>
+    <linearGradient id="linear-gradient-8" x1="0.5" y1="1.167" x2="0.5" y2="0.015" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#820046"/>
+      <stop offset="1" stop-color="#fa5d6c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-9" x1="0" y1="0.5" x2="1.315" y2="0.5" xlink:href="#linear-gradient-8"/>
+    <linearGradient id="linear-gradient-10" x1="-4327.404" y1="-20752.184" x2="-1289.99" y2="-6187.863" xlink:href="#linear-gradient-5"/>
+    <linearGradient id="linear-gradient-11" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#e50056"/>
+      <stop offset="1" stop-color="#95003c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-12" x1="0.444" y1="-0.132" x2="0.837" y2="0.795" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#de0057"/>
+      <stop offset="1" stop-color="#fa5d6c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-13" y1="0.5" x2="1" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f8ecff"/>
+      <stop offset="0.548" stop-color="#ebf5ff"/>
+      <stop offset="1" stop-color="#dff"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-15" x1="0.294" y1="0.087" x2="0.839" y2="0.829" xlink:href="#linear-gradient-4"/>
+    <linearGradient id="linear-gradient-16" x1="0" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient-3"/>
+    <linearGradient id="linear-gradient-17" x1="-0.12" y1="0.236" x2="1.693" y2="1.505" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff967d"/>
+      <stop offset="1" stop-color="#ff6f72"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-18" x1="2.333" y1="1.503" x2="0.055" y2="0.053" gradientUnits="objectBoundingBox">
+      <stop offset="0.368" stop-color="#ff967d"/>
+      <stop offset="0.884" stop-color="#ffb4a0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-19" x1="0.068" y1="0.166" x2="3.087" y2="2.497" gradientUnits="objectBoundingBox">
+      <stop offset="0.134" stop-color="#f4c5ac"/>
+      <stop offset="0.286" stop-color="#f2bfa4"/>
+      <stop offset="0.637" stop-color="#f0b798"/>
+      <stop offset="1" stop-color="#f0b595"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-20" x1="0.132" y1="-0.673" x2="1.16" y2="2.101" gradientUnits="objectBoundingBox">
+      <stop offset="0.001" stop-color="#ff946c"/>
+      <stop offset="0.031" stop-color="#fe8f6c"/>
+      <stop offset="0.365" stop-color="#fc636c"/>
+      <stop offset="0.624" stop-color="#fa486c"/>
+      <stop offset="0.776" stop-color="#fa3e6c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-21" x1="1.341" y1="2.144" x2="0.178" y2="-0.129" xlink:href="#linear-gradient-12"/>
+    <linearGradient id="linear-gradient-22" x1="0.134" y1="0.027" x2="1.733" y2="2.093" xlink:href="#linear-gradient-20"/>
+    <linearGradient id="linear-gradient-23" x1="0.105" y1="-0.79" x2="0.647" y2="0.981" xlink:href="#linear-gradient-11"/>
+    <linearGradient id="linear-gradient-24" x1="0.5" y1="-0.129" x2="0.5" y2="0.873" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#791c59"/>
+      <stop offset="0.398" stop-color="#601154"/>
+      <stop offset="1" stop-color="#34004c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-25" x1="0.509" y1="-0.483" x2="0.475" y2="1.383" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#34004c"/>
+      <stop offset="0.456" stop-color="#601154"/>
+      <stop offset="0.758" stop-color="#791c59"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-26" x1="0.5" y1="1.215" x2="0.5" y2="-0.014" gradientUnits="objectBoundingBox">
+      <stop offset="0.133" stop-color="#34004c" stop-opacity="0"/>
+      <stop offset="0.47" stop-color="#5e0b51" stop-opacity="0.424"/>
+      <stop offset="0.829" stop-color="#871756" stop-opacity="0.835"/>
+      <stop offset="1" stop-color="#981c59"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-27" x1="-2.427" y1="0.1" x2="4.274" y2="1.015" xlink:href="#linear-gradient-20"/>
+    <linearGradient id="linear-gradient-28" x1="-2.088" y1="0.164" x2="5.23" y2="1.219" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fa5d6c"/>
+      <stop offset="1" stop-color="#de0057"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-29" x1="1.035" y1="-0.173" x2="-0.295" y2="1.769" xlink:href="#linear-gradient-3"/>
+    <linearGradient id="linear-gradient-30" x1="-29.638" y1="-207.56" x2="-28.93" y2="-207.56" xlink:href="#linear-gradient-19"/>
+    <linearGradient id="linear-gradient-31" x1="0.02" y1="0.117" x2="1.066" y2="0.952" gradientUnits="objectBoundingBox">
+      <stop offset="0.134" stop-color="#f4c5ac" stop-opacity="0"/>
+      <stop offset="0.225" stop-color="#f3c1a7" stop-opacity="0.204"/>
+      <stop offset="0.331" stop-color="#f2bea2" stop-opacity="0.412"/>
+      <stop offset="0.441" stop-color="#f1bb9e" stop-opacity="0.592"/>
+      <stop offset="0.55" stop-color="#f1b99a" stop-opacity="0.741"/>
+      <stop offset="0.66" stop-color="#f0b798" stop-opacity="0.855"/>
+      <stop offset="0.771" stop-color="#f0b696" stop-opacity="0.933"/>
+      <stop offset="0.884" stop-color="#f0b595" stop-opacity="0.984"/>
+      <stop offset="1" stop-color="#f0b595"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-33" x1="-0.03" y1="0.5" x2="0.627" y2="0.5" xlink:href="#linear-gradient-12"/>
+    <linearGradient id="linear-gradient-34" x1="0" y1="0.5" x2="1" y2="0.5" xlink:href="#linear-gradient-28"/>
+    <linearGradient id="linear-gradient-35" x1="0.5" y1="2.572" x2="0.5" y2="0.21" gradientUnits="objectBoundingBox">
+      <stop offset="0.001" stop-color="#ff606c"/>
+      <stop offset="0.603" stop-color="#fb486c"/>
+      <stop offset="1" stop-color="#fa3e6c"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-36" x1="-2.807" y1="-0.04" x2="16.431" y2="3.103" xlink:href="#linear-gradient-35"/>
+    <linearGradient id="linear-gradient-37" x1="0.507" y1="0.838" x2="0.491" y2="0.113" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#34004c"/>
+      <stop offset="0.11" stop-color="#40034d"/>
+      <stop offset="0.714" stop-color="#7f1555"/>
+      <stop offset="1" stop-color="#981c59"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-38" x1="0.865" y1="-0.134" x2="0.281" y2="1.121" xlink:href="#linear-gradient-24"/>
+    <linearGradient id="linear-gradient-40" x1="-9.877" y1="-1.195" x2="9.361" y2="1.948" xlink:href="#linear-gradient-35"/>
+    <linearGradient id="linear-gradient-42" x1="-16.957" y1="-2.352" x2="2.281" y2="0.791" xlink:href="#linear-gradient-35"/>
+  </defs>
+  <g id="red_k" transform="translate(226.622 -666.263)">
+    <g id="Group_365" data-name="Group 365" clip-path="url(#clip-path)">
+      <g id="Group_364" data-name="Group 364">
+        <path id="Path_891" data-name="Path 891" d="M-163.8,764.6v6.792a10.756,10.756,0,0,0,9.7-6.111,10.714,10.714,0,0,0,1.052-4.644H-163.8Z" fill="none"/>
+        <g id="Group_350" data-name="Group 350">
+          <path id="Path_892" data-name="Path 892" d="M-154.188,765.433a11.2,11.2,0,0,1-9.686,8.9A9.724,9.724,0,0,0-154.188,765.433Z" fill="none"/>
+          <path id="Path_893" data-name="Path 893" d="M-176.223,755.961c-1.44,2.133.578,4.677,3.709,4.677h8.64v-22.98Z" fill="url(#linear-gradient)"/>
+          <path id="Path_894" data-name="Path 894" d="M-163.874,737.658H-125.1v47.09H-151.64v-5.823h-12.234Z" fill="url(#linear-gradient-2)"/>
+        </g>
+        <path id="Path_895" data-name="Path 895" d="M-136.639,757.171c-.046,0-.091,0-.136.007v.217C-136.732,757.319-136.683,757.246-136.639,757.171Z" fill="none"/>
+        <path id="Path_896" data-name="Path 896" d="M-142.517,737.658h-21.357A10.679,10.679,0,0,0-153.2,748.336a10.626,10.626,0,0,0,5.965-1.821l.026,22.074-.037,15.845H-125.1V737.658Z" fill="url(#linear-gradient-3)"/>
+        <path id="Path_897" data-name="Path 897" d="M-161.048,760.682h30.119s3.242,32.674-40.536,32.674A57.286,57.286,0,0,0-161.048,760.682Z" fill="url(#linear-gradient-4)"/>
+        <path id="Path_898" data-name="Path 898" d="M-136.9,757.181c.042.072.089.141.13.214v-.217c-.03,0-.061,0-.092,0Z" fill="none"/>
+        <g id="Group_354" data-name="Group 354">
+          <g id="Group_352" data-name="Group 352">
+            <path id="Path_899" data-name="Path 899" d="M-147.044,806.007h0Z" fill="#5637b1"/>
+            <path id="Path_900" data-name="Path 900" d="M-125.31,806.007h0Z" fill="#5637b1"/>
+            <path id="Path_901" data-name="Path 901" d="M-157.714,778.255c.116,0,.23-.009.345-.009h-.352Z" fill="url(#linear-gradient-5)"/>
+            <path id="Path_902" data-name="Path 902" d="M-135.711,806.009h0Z" fill="url(#linear-gradient-6)"/>
+            <path id="Path_903" data-name="Path 903" d="M-113.708,778.254l.006-.008h-.327C-113.922,778.247-113.816,778.253-113.708,778.254Z" fill="url(#linear-gradient-7)"/>
+            <g id="Group_351" data-name="Group 351">
+              <path id="Path_904" data-name="Path 904" d="M-166.855,779.927c-.652.237-1.3.49-1.924.774a27.76,27.76,0,0,0-16.351,25.306h27.479l5.735-7.235Z" fill="#292172"/>
+              <path id="Path_905" data-name="Path 905" d="M-103.423,780.358c-.375-.155-.755-.3-1.137-.44l-14.947,18.854,5.736,7.235h27.478A27.766,27.766,0,0,0-103.423,780.358Z" fill="#292172"/>
+              <path id="Path_906" data-name="Path 906" d="M-104.56,779.918a27.694,27.694,0,0,0-9.469-1.672h-43.34a27.619,27.619,0,0,0-9.486,1.681l14.939,18.845-5.735,7.235h43.88l-5.736-7.235Z" fill="#34004c"/>
+              <path id="Path_907" data-name="Path 907" d="M-166.855,779.927c-.652.237-1.3.49-1.924.774a27.76,27.76,0,0,0-16.351,25.306h27.479l5.735-7.235Z" fill="url(#linear-gradient-8)"/>
+              <path id="Path_908" data-name="Path 908" d="M-103.423,780.358c-.375-.155-.755-.3-1.137-.44l-14.947,18.854,5.736,7.235h27.478A27.766,27.766,0,0,0-103.423,780.358Z" fill="url(#linear-gradient-9)"/>
+            </g>
+            <path id="Path_909" data-name="Path 909" d="M-114.054,778.246Z" fill="#292172"/>
+            <path id="Path_911" data-name="Path 911" d="M-135.713,806.007h0Z" fill="#5637b1"/>
+            <path id="Path_912" data-name="Path 912" d="M-135.713,806.007h0Z" fill="url(#linear-gradient-10)"/>
+          </g>
+          <path id="Path_913" data-name="Path 913" d="M-124.237,806.008h-22.948l11.474-14.473Z" fill="url(#linear-gradient-11)"/>
+          <path id="Path_914" data-name="Path 914" d="M-157.721,778.246h44.02l-22.01,27.763Z" fill="url(#linear-gradient-12)"/>
+          <g id="Group_353" data-name="Group 353">
+            <path id="Path_915" data-name="Path 915" d="M-163.956,806.085l-.2-.156,5.674-7.156L-171.6,782.215l.2-.156,13.249,16.714-.062.078Z" fill="url(#linear-gradient-13)"/>
+            <path id="Path_916" data-name="Path 916" d="M-107.47,806.085l-5.8-7.312.062-.078,13.188-16.636.2.156-13.126,16.558,5.674,7.156Z" fill="url(#linear-gradient-13)"/>
+          </g>
+        </g>
+        <path id="Path_917" data-name="Path 917" d="M-136.33,737.658v28.026a14.752,14.752,0,0,0,14.824,14.677h10.514l-.147-42.7Z" fill="url(#linear-gradient-15)"/>
+        <path id="Path_918" data-name="Path 918" d="M-163.874,753.88a6.758,6.758,0,0,0-6.758,6.758h13.516A6.758,6.758,0,0,0-163.874,753.88Z" fill="url(#linear-gradient-16)"/>
+        <path id="Path_919" data-name="Path 919" d="M-141.119,748.543a6.126,6.126,0,0,0-6.126-6.126v12.252A6.126,6.126,0,0,0-141.119,748.543Z" fill="url(#linear-gradient-17)"/>
+        <path id="Path_920" data-name="Path 920" d="M-153.322,748.543a6.126,6.126,0,0,0,6.126,6.126V742.417A6.126,6.126,0,0,0-153.322,748.543Z" fill="url(#linear-gradient-18)"/>
+        <path id="Path_921" data-name="Path 921" d="M-170.632,760.638h6.758V753.88A6.758,6.758,0,0,0-170.632,760.638Z" fill="url(#linear-gradient-19)"/>
+        <g id="Group_355" data-name="Group 355">
+          <path id="Path_922" data-name="Path 922" d="M-168.956,721.329l5.264,14.328h34.24V721.329Z" fill="url(#linear-gradient-20)"/>
+          <rect id="Rectangle_291" data-name="Rectangle 291" width="10.91" height="14.328" transform="translate(-136.33 721.329)" fill="url(#linear-gradient-21)"/>
+          <rect id="Rectangle_292" data-name="Rectangle 292" width="10.841" height="14.328" transform="translate(-147.241 721.329)" fill="url(#linear-gradient-22)"/>
+          <path id="Path_923" data-name="Path 923" d="M-103.6,721.329l-3.772,14.328H-125.42V721.329Z" fill="url(#linear-gradient-23)"/>
+        </g>
+        <path id="Path_924" data-name="Path 924" d="M-157.083,744.448a6.791,6.791,0,0,0,6.791-6.79h-13.582A6.791,6.791,0,0,0-157.083,744.448Z" fill="#f4f2f2"/>
+        <path id="Path_925" data-name="Path 925" d="M-107.5,737.658h-26.556v28.308c0,8.187,4.293,14.825,12.481,14.825h25.68c-13.805-13.8-11.657-17.777-11.657-38.374Z" fill="url(#linear-gradient-24)"/>
+        <path id="Path_926" data-name="Path 926" d="M-157.878,742.417a4.759,4.759,0,0,0,4.759-4.759h-9.518A4.759,4.759,0,0,0-157.878,742.417Z" fill="url(#linear-gradient-25)"/>
+        <path id="Path_927" data-name="Path 927" d="M-159.463,739.721a2.063,2.063,0,0,0,2.063-2.063h-4.127A2.064,2.064,0,0,0-159.463,739.721Z" fill="#f4f2f2"/>
+        <rect id="Rectangle_293" data-name="Rectangle 293" width="17.255" height="33.736" transform="translate(-124.918 737.658)" fill="url(#linear-gradient-26)"/>
+        <g id="Group_358" data-name="Group 358">
+          <rect id="Rectangle_294" data-name="Rectangle 294" width="9.939" height="16.103" transform="translate(-191.43 780.999)" fill="#820046"/>
+          <g id="Group_357" data-name="Group 357">
+            <rect id="Rectangle_295" data-name="Rectangle 295" width="21.527" height="2.485" transform="translate(-197.224 779.752)" fill="#820046"/>
+            <g id="Group_356" data-name="Group 356">
+              <path id="Path_928" data-name="Path 928" d="M-186.46,712.849l-4.97,4.97v61.933h4.97v-66.9Z" fill="url(#linear-gradient-27)"/>
+              <path id="Path_929" data-name="Path 929" d="M-181.49,717.819l-4.97-4.97v66.9h4.97Z" fill="url(#linear-gradient-28)"/>
+            </g>
+          </g>
+        </g>
+        <path id="Path_930" data-name="Path 930" d="M-177.072,713.646h-.041l.021.034Z" fill="none"/>
+        <g id="Group_361" data-name="Group 361">
+          <g id="Group_360" data-name="Group 360">
+            <g id="Group_359" data-name="Group 359">
+              <path id="Path_931" data-name="Path 931" d="M-190.774,791.535h0c-2.867,0-5.191,2.03-5.191,4.535v9.939H-179.4V791.535Z" fill="url(#linear-gradient-29)"/>
+              <path id="Path_932" data-name="Path 932" d="M-186.46,786.565l-4.97,4.97h9.94Z" fill="url(#linear-gradient-30)"/>
+            </g>
+            <rect id="Rectangle_296" data-name="Rectangle 296" width="12.033" height="4.825" transform="translate(-191.43 791.535)" fill="url(#linear-gradient-31)"/>
+            <rect id="Rectangle_297" data-name="Rectangle 297" width="12.033" height="4.825" transform="translate(-191.43 801.185)" fill="url(#linear-gradient-31)"/>
+          </g>
+        </g>
+        <g id="Group_362" data-name="Group 362">
+          <path id="Path_933" data-name="Path 933" d="M-111.9,729.633l-8.125-8.125-8.125,8.125-8.125-8.125-8.125,8.125-8.125-8.125-8.125,8.125-8.3-8.3H-103.6Z" fill="url(#linear-gradient-33)"/>
+          <path id="Path_934" data-name="Path 934" d="M-120.028,721.15l-8.125-8.125-8.125,8.125-8.125-8.125-8.125,8.125-8.125-8.125-8.3,8.3H-103.6l-8.3-8.3Z" fill="url(#linear-gradient-34)"/>
+        </g>
+        <path id="Path_935" data-name="Path 935" d="M-152.5,707.051l.023.037h-.044Zm-5.839-.394a3.189,3.189,0,0,0,.567.983l5.251,5.673,5.252-5.673a3.166,3.166,0,0,0,.566-.983,3.182,3.182,0,0,0,.161-1.457,3.207,3.207,0,0,0-2.8-2.778,3.252,3.252,0,0,0-1.467.16,3.221,3.221,0,0,0-1.713,1.42,3.219,3.219,0,0,0-1.712-1.42,3.252,3.252,0,0,0-1.467-.16,3.207,3.207,0,0,0-2.8,2.778A3.169,3.169,0,0,0-158.335,706.657Z" fill="url(#linear-gradient-35)"/>
+        <circle id="Ellipse_46" data-name="Ellipse 46" cx="1.11" cy="1.11" r="1.11" transform="translate(-153.648 713.957)" fill="url(#linear-gradient-36)"/>
+        <g id="Group_363" data-name="Group 363">
+          <path id="Path_936" data-name="Path 936" d="M-164.066,760.682h30.119s3.242,32.674-40.536,32.674A57.286,57.286,0,0,0-164.066,760.682Z" fill="url(#linear-gradient-37)"/>
+          <path id="Path_937" data-name="Path 937" d="M-147.213,760.682s.169,17.564-13.466,25.883c0,0-5.71,3.171-13.8,6.791,0,0,41.418,1.708,40.536-32.674Z" fill="url(#linear-gradient-38)"/>
+        </g>
+        <path id="Path_938" data-name="Path 938" d="M-136.379,707.051l.022.037h-.043Zm-5.839-.394a3.169,3.169,0,0,0,.567.983l5.251,5.673,5.251-5.673a3.169,3.169,0,0,0,.567-.983,3.182,3.182,0,0,0,.161-1.457,3.208,3.208,0,0,0-2.8-2.778,3.249,3.249,0,0,0-1.466.16A3.217,3.217,0,0,0-136.4,704a3.217,3.217,0,0,0-1.713-1.42,3.249,3.249,0,0,0-1.466-.16,3.208,3.208,0,0,0-2.8,2.778A3.182,3.182,0,0,0-142.218,706.657Z" fill="url(#linear-gradient-35)"/>
+        <circle id="Ellipse_47" data-name="Ellipse 47" cx="1.11" cy="1.11" r="1.11" transform="translate(-137.531 713.957)" fill="url(#linear-gradient-40)"/>
+        <path id="Path_939" data-name="Path 939" d="M-120.241,707.051l.022.037h-.043Zm-5.839-.394a3.169,3.169,0,0,0,.567.983l5.251,5.673,5.251-5.673a3.169,3.169,0,0,0,.567-.983,3.182,3.182,0,0,0,.161-1.457,3.208,3.208,0,0,0-2.8-2.778,3.249,3.249,0,0,0-1.466.16,3.217,3.217,0,0,0-1.713,1.42,3.217,3.217,0,0,0-1.713-1.42,3.249,3.249,0,0,0-1.466-.16,3.208,3.208,0,0,0-2.8,2.778A3.182,3.182,0,0,0-126.08,706.657Z" fill="url(#linear-gradient-35)"/>
+        <circle id="Ellipse_48" data-name="Ellipse 48" cx="1.11" cy="1.11" r="1.11" transform="translate(-121.393 713.957)" fill="url(#linear-gradient-42)"/>
+        <path id="Path_940" data-name="Path 940" d="M-135.645,787.457l.021.034h-.041Zm-5.489-.371a2.991,2.991,0,0,0,.533.925l4.936,5.332,4.937-5.332a2.988,2.988,0,0,0,.532-.925,2.985,2.985,0,0,0,.152-1.369,3.013,3.013,0,0,0-2.632-2.611,3.053,3.053,0,0,0-1.379.15,3.023,3.023,0,0,0-1.61,1.334,3.023,3.023,0,0,0-1.61-1.334,3.051,3.051,0,0,0-1.378-.15,3.012,3.012,0,0,0-2.632,2.611A2.985,2.985,0,0,0-141.134,787.086Z" fill="#34004c"/>
+      </g>
+    </g>
+  </g>
+</svg>
