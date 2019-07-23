@@ -5,6 +5,7 @@ import NavTop from "../components/NavTop";
 import CardBox from "../components/CardBox";
 import Controller from "../components/Controller";
 import Dialog from "../components/Dialog";
+import StartContainer from "./StartContainer";
 
 const POKER = [];
 for (let t = 1; t <= 4; t++) {
@@ -63,6 +64,8 @@ class Main extends React.PureComponent {
       time: 0,
       move: 0,
       isdialogOpen: false,
+      onStartPage: true,
+      isPlaying: false,
       dialog: {
         text: "",
         btn1Text: "取消",
@@ -73,7 +76,6 @@ class Main extends React.PureComponent {
         btn2Type: "",
         only: false
       },
-      isPlaying: true,
       originPoker: POKER,
       storage: [[], [], [], []],
       finish: [[], [], [], []],
@@ -106,7 +108,6 @@ class Main extends React.PureComponent {
 
   componentDidMount() {
     console.log(this.state);
-    this.state.isPlaying ? this.play() : this.pause();
   }
   play() {
     const intervalId = setInterval(() => {
@@ -126,6 +127,34 @@ class Main extends React.PureComponent {
     });
   }
 
+  backToStart() {
+    this.pause();
+    this.setState({
+      time: 0,
+      move: 0,
+      isdialogOpen: false,
+      onStartPage: true,
+      isPlaying: false
+    });
+  }
+
+  restartGame() {
+    this.play();
+    this.setState({
+      time: 0,
+      move: 0,
+      isdialogOpen: false
+    });
+  }
+
+  onEnter() {
+    this.play();
+    this.setState({
+      onStartPage: false,
+      isPlaying: true,
+    });
+  }
+
   onStop() {
     this.pause();
     this.setState({
@@ -134,7 +163,7 @@ class Main extends React.PureComponent {
         btn1Text: "取消",
         btn2Text: "確定",
         btn1Click: () => this.backToGame(),
-        btn2Click: () => this.backToGame(),
+        btn2Click: () => this.backToStart(),
         only: false
       },
       isdialogOpen: true
@@ -165,7 +194,7 @@ class Main extends React.PureComponent {
         btn1Text: "取消",
         btn2Text: "確定",
         btn1Click: () => this.backToGame(),
-        btn2Click: () => this.backToGame(),
+        btn2Click: () => this.restartGame(),
         only: false
       },
       isdialogOpen: true
@@ -201,6 +230,7 @@ class Main extends React.PureComponent {
           open={this.state.isdialogOpen}
           data={this.state.dialog}
         />
+        <StartContainer open={this.state.onStartPage} onClick={()=>this.onEnter()} />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen}>
           <CardArea>

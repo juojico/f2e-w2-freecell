@@ -12,7 +12,11 @@ const ButtonBg = styled.div`
   margin: 12px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   letter-spacing: 2px;
+  transition: .2s;
   cursor: pointer;
+  &:hover {
+    background: #ff7d80;
+  }
 `;
 
 const Button = ({ text, ...props }) => {
