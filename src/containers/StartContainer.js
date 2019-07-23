@@ -20,9 +20,11 @@ const StartWrapper = styled.div`
     height: ${props => props.open ? '100%' : '0'};
     top: 0;
     left: 0;
-    background: url(${startPage});
-    background-size: cover;
+    background-color: #2C2B50;
+    background-image: url(${startPage});
+    background-size: auto;
     background-position: top;
+    background-repeat: no-repeat;
     overflow: hidden;
     transition: .5s;
     z-index: 50;
