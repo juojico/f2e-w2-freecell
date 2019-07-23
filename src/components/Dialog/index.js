@@ -51,22 +51,15 @@ const BtnBox = styled.div`
 
 const Dialog = ({
   open,
-  text,
-  btn1Text = "取消",
-  btn2Text = "確定",
-  btn1Click,
-  btn2Click,
-  btn1Type,
-  btn2Type,
-  only
+  data
 }) => {
   return (
     <DialogWrapper open={open}>
       <DialogBox open={open}>
-        <h2>{text}</h2>
+        <h2>{data.text}</h2>
         <BtnBox>
-          <Button text={btn1Text} onClick={btn1Click} type={btn1Type} />
-          {only?null:<Button text={btn2Text} onClick={btn2Click} type={btn2Type} />}
+          <Button text={data.btn1Text} onClick={data.btn1Click} type={data.btn1Type} />
+          {data.only ? null : <Button text={data.btn2Text} onClick={data.btn2Click} type={data.btn2Type} />}
         </BtnBox>
       </DialogBox>
       <DialogBg />

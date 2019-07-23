@@ -3,11 +3,15 @@ import styled from "styled-components";
 import "../../App.css";
 import cardBg from "../../slice_img/cards/card_bg.svg";
 import blackJ from "../../slice_img/cards/black_j.svg";
+import blackJ2 from "../../slice_img/cards/black_j2.svg";
 import blackQ from "../../slice_img/cards/black_q.svg";
 import blackK from "../../slice_img/cards/black_k.svg";
+import blackK2 from "../../slice_img/cards/black_k2.svg";
 import redJ from "../../slice_img/cards/red_j.svg";
+import redJ2 from "../../slice_img/cards/red_j2.svg";
 import redQ from "../../slice_img/cards/red_q.svg";
 import redK from "../../slice_img/cards/red_k.svg";
+import redK2 from "../../slice_img/cards/red_k2.svg";
 import cardType1 from "../../slice_img/cards/cardtype_1.svg";
 import cardType2 from "../../slice_img/cards/cardtype_2.svg";
 import cardType3 from "../../slice_img/cards/cardtype_3.svg";
@@ -94,7 +98,30 @@ const witchMainImg = (number, type) => {
         return cardType1;
     }
   } else {
-    if (type > 2) {
+    switch (type) {
+      case 1 :
+      switch (number) {
+        case 11:
+          return blackJ;
+        case 12:
+          return blackQ;
+        case 13:
+          return blackK;
+        default:
+          return blackJ;
+      }
+      case 2 :
+      switch (number) {
+        case 11:
+          return blackJ2;
+        case 12:
+          return blackQ;
+        case 13:
+          return blackK2;
+        default:
+          return blackJ2;
+      }
+      case 3 :
       switch (number) {
         case 11:
           return redJ;
@@ -105,16 +132,16 @@ const witchMainImg = (number, type) => {
         default:
           return redJ;
       }
-    } else {
+      case 4 :
       switch (number) {
         case 11:
-          return blackJ;
+          return redJ2;
         case 12:
-          return blackQ;
+          return redQ;
         case 13:
-          return blackK;
+          return redK2;
         default:
-          return blackJ;
+          return redJ2;
       }
     }
   }
@@ -155,12 +182,12 @@ const witchNumber = (number, type) => {
   }
 };
 
-const Cards = ({ number, type }) => {
+const Cards = ({ number, type, ...props }) => {
   return (
-    <CardsBg>
+    <CardsBg {...props}>
       <CardInfo>
         {witchNumber(number, type)}
-        <img src={witchType(type)} alt='cardType'/>
+        <img src={witchType(type)} alt='cardType' />
       </CardInfo>
       <MainImg img={witchMainImg(number, type)} />
     </CardsBg>

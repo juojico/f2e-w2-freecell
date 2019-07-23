@@ -75,14 +75,8 @@ class Main extends React.PureComponent {
       },
       isPlaying: true,
       originPoker: POKER,
-      storage1: [],
-      storage2: [],
-      storage3: [],
-      storage4: [],
-      finish1: [],
-      finish2: [],
-      finish3: [],
-      finish4: [],
+      storage: [[], [], [], []],
+      finish: [[], [], [], []],
       table: [
         POKER.slice(0, 7),
         POKER.slice(7, 14),
@@ -92,7 +86,21 @@ class Main extends React.PureComponent {
         POKER.slice(34, 40),
         POKER.slice(40, 46),
         POKER.slice(46, 52)
-      ]
+      ],
+      onStartCards: {
+        storage: [[], [], [], []],
+        finish: [[], [], [], []],
+        table: [
+          POKER.slice(0, 7),
+          POKER.slice(7, 14),
+          POKER.slice(14, 21),
+          POKER.slice(21, 28),
+          POKER.slice(28, 34),
+          POKER.slice(34, 40),
+          POKER.slice(40, 46),
+          POKER.slice(46, 52)
+        ]
+      }
     };
   }
 
@@ -111,14 +119,22 @@ class Main extends React.PureComponent {
     clearInterval(this.state.intervalId);
   }
 
+  backToGame() {
+    this.play();
+    this.setState({
+      isdialogOpen: false
+    });
+  }
+
   onStop() {
+    this.pause();
     this.setState({
       dialog: {
         text: "是否放棄本局？",
         btn1Text: "取消",
         btn2Text: "確定",
-        btn1Click: () => this.onCloseDialog(),
-        btn2Click: () => this.onCloseDialog(),
+        btn1Click: () => this.backToGame(),
+        btn2Click: () => this.backToGame(),
         only: false
       },
       isdialogOpen: true
@@ -138,21 +154,18 @@ class Main extends React.PureComponent {
     });
     console.log("onPause");
   }
-  backToGame() {
-    this.play();
-    this.onCloseDialog();
-  }
   onUndo() {
     console.log("onUndo");
   }
   onRestart() {
+    this.pause();
     this.setState({
       dialog: {
         text: "是否重新本局？",
         btn1Text: "取消",
         btn2Text: "確定",
-        btn1Click: () => this.onCloseDialog(),
-        btn2Click: () => this.onCloseDialog(),
+        btn1Click: () => this.backToGame(),
+        btn2Click: () => this.backToGame(),
         only: false
       },
       isdialogOpen: true
@@ -160,11 +173,12 @@ class Main extends React.PureComponent {
     console.log("onRestart");
   }
   onTips() {
+    this.pause();
     this.setState({
       dialog: {
         text: "提示",
         btn1Text: "關閉",
-        btn1Click: () => this.onCloseDialog(),
+        btn1Click: () => this.backToGame(),
         only: true
       },
       isdialogOpen: true
@@ -172,11 +186,12 @@ class Main extends React.PureComponent {
     console.log("onTips");
   }
 
-  onCloseDialog() {
-    this.setState({
-      isdialogOpen: false
-    });
-    console.log("onCloseDialog");
+  handleCardClick(event) {
+    console.log('handleCardClick', event.target);
+  }
+
+  handleDoubleClickItem(event) {
+    console.log('handleDoubleClickItem', event.target);
   }
 
   render() {
@@ -184,16 +199,7 @@ class Main extends React.PureComponent {
       <MainContainer>
         <Dialog
           open={this.state.isdialogOpen}
-          text={"Congratulations! You Won the Game."}
-          btn1Click={() => this.onCloseDialog()}
-          text={this.state.dialog.text}
-          btn1Text={this.state.dialog.btn1Text}
-          btn2Text={this.state.dialog.btn2Text}
-          btn1Click={this.state.dialog.btn1Click}
-          btn2Click={this.state.dialog.btn2Click}
-          btn1Type={this.state.dialog.btn1Type}
-          btn2Type={this.state.dialog.btn2Type}
-          only={this.state.dialog.only}
+          data={this.state.dialog}
         />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen}>
@@ -215,6 +221,8 @@ class Main extends React.PureComponent {
                     type={cards.type}
                     number={cards.number}
                     key={cards.type + "x" + cards.number}
+                    onClick={this.handleCardClick}
+                    onDoubleClick={this.handleDoubleClickItem}
                   />
                 ))}
               </CardBox>
