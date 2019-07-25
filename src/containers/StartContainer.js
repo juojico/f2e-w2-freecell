@@ -38,7 +38,7 @@ const StartWrapper = styled.div`
   background-repeat: no-repeat;
   overflow: hidden;
   transition: 1.5s;
-  z-index: 50;
+  z-index: 150;
   ${({open})=>open?'clip-path: polygon(0% 0%,100% 0%,100% 100%,50% 100%,0 100%);':'clip-path: polygon(0% 0%,100% 0%,100% 0%,50% -200%,0 0%);'}
 `;
 

@@ -73,8 +73,7 @@ class Main extends React.PureComponent {
       move: 0,
       undoUsed: 0,
       isdialogOpen: false,
-      onStartPage: true,
-      isPlaying: false,
+      isStartPage: true,
       isWin: false,
       dialog: {
         text: "",
@@ -126,12 +125,20 @@ class Main extends React.PureComponent {
     console.log("TCL: Main -> shuffle -> onStartCards", onStartCards, stepsHistory);
   }
 
+  winTheGame() {
+    const isWin = this.state.finish.every(item => item.length > 12);
+    if (isWin) {
+      this.pause();
+      this.setState({ isWin: true });
+    }
+  }
+
+  // 遊戲狀態
   onEnter() {
     this.play();
     this.shuffle();
     this.setState({
-      onStartPage: false,
-      isPlaying: true
+      isStartPage: false
     });
   }
 
@@ -159,9 +166,9 @@ class Main extends React.PureComponent {
     this.setState({
       time: 0,
       move: 0,
+      undoUsed: 0,
       isdialogOpen: false,
-      onStartPage: true,
-      isPlaying: false,
+      isStartPage: true,
       isWin: false
     });
   }
@@ -171,12 +178,14 @@ class Main extends React.PureComponent {
     this.setState({
       time: 0,
       move: 0,
+      undoUsed: 0,
       isdialogOpen: false,
       isWin: false,
       ...JSON.parse(stepsHistory[0])
     });
   }
 
+  // 下方按鈕操作
   onStop() {
     this.pause();
     this.setState({
@@ -191,6 +200,7 @@ class Main extends React.PureComponent {
       isdialogOpen: true
     });
   }
+
   onPause() {
     this.pause();
     this.setState({
@@ -203,6 +213,7 @@ class Main extends React.PureComponent {
       isdialogOpen: true
     });
   }
+
   onUndo() {
     const nowStep = this.state.move;
     if (nowStep) {
@@ -214,6 +225,7 @@ class Main extends React.PureComponent {
       stepsHistory.splice(-1);
     }
   }
+
   onRestart() {
     this.pause();
     this.setState({
@@ -228,8 +240,10 @@ class Main extends React.PureComponent {
       isdialogOpen: true
     });
   }
+
   onTips() {
-    console.log("onTips");
+    const canMoveCard = [this.state.table.map(item=>item.slice(-1))];
+    console.log("onTips", canMoveCard);
   }
 
   // 移動相關
@@ -275,14 +289,6 @@ class Main extends React.PureComponent {
   handleDragOver(e, name, index) {
     e.preventDefault();
     this.targetBox = { name, index };
-  }
-
-  winTheGame() {
-    const isWin = this.state.finish.every(item => item.length > 12);
-    if (isWin) {
-      this.pause();
-      this.setState({ isWin: true });
-    }
   }
 
   // 移動判斷
@@ -371,12 +377,12 @@ class Main extends React.PureComponent {
       <MainContainer windowWidth={this.state.windowWidth}>
         <Dialog open={this.state.isdialogOpen} data={this.state.dialog} />
         <StartContainer
-          open={this.state.onStartPage}
+          open={this.state.isStartPage}
           onClick={() => this.onEnter()}
           setDifficult={num => this.setDifficult(num)}
           nowDifficult={this.state.difficult}
         />
-        <WinContainer open={this.state.isWin} time={this.state.time} move={this.state.move} onClick={() => this.backToStart()} />
+        <WinContainer open={this.state.isWin} time={this.state.time} move={this.state.move} undoUsed={this.state.undoUsed} onClick={() => this.backToStart()} />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen || this.state.isWin}>
           <CardArea>
@@ -484,7 +490,7 @@ class Main extends React.PureComponent {
           </CardArea>
         </CardsTable>
         <Controller
-          hidden={this.state.isdialogOpen || this.state.isWin}
+          hidden={this.state.isdialogOpen || this.state.isWin || this.state.isStartPage}
           onStop={() => this.onStop()}
           onPause={() => this.onPause()}
           onUndo={() => this.onUndo()}

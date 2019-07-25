@@ -33,6 +33,7 @@ const ControllerBg = styled.div`
   );
   box-shadow: 0 -10px 25px rgba(47, 43, 54, 0.8);
   transform: translate(-50%);
+  opacity: ${props => (props.hidden ? "0" : "1")};
   transition: 0.5s;
   animation: ${colorMove} 3s alternate infinite;
 `;
