@@ -13,6 +13,7 @@ const ButtonBg = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   letter-spacing: 2px;
   transition: .2s;
+  user-select: none;
   cursor: pointer;
   &:hover {
     background: #ff7d80;

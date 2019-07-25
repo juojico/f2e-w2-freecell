@@ -24,7 +24,7 @@ const MainBox = styled.div`
   height: 450px;
   bottom: 0;
   left: 50%;
-  color: #9e99ff;
+  color: white;
   text-align: center;
   transform: translate(-50%);
   animation: ${MainBoxMV} 1s;
@@ -49,8 +49,8 @@ const WinContainer = ({ open, onClick }) => {
   return (
     <WinWrapper open={open}>
       <MainBox>
-        <MainBtn text='START' onClick={onClick} />
         <h1>Congratulations! You Won the Game.</h1>
+        <MainBtn text='RESTART' onClick={onClick} />
       </MainBox>
     </WinWrapper>
   );

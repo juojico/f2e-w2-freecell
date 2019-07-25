@@ -16,6 +16,7 @@ const CardBoxBg = styled.div`
       ? "rgba(158, 153, 255, .5)"
       : "rgba(158, 153, 255, .2)"};
   border-radius: 16px;
+  user-select: none;
   & > svg {
     position: absolute;
     left: 50%;

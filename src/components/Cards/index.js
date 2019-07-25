@@ -35,7 +35,10 @@ import { ReactComponent as Num12 } from "../../slice_img/cards/num_12.svg";
 import { ReactComponent as Num13 } from "../../slice_img/cards/num_13.svg";
 
 const cardOnStart = keyframes`
- from {
+ 0% {
+  margin-bottom: -140px;
+ }
+ 60% {
   margin-bottom: -140px;
  }
 `;
@@ -51,7 +54,7 @@ const CardsBg = styled.div`
   cursor: pointer;
   user-select: none;
   // pointer-events: none;
-  animation: ${cardOnStart} 2s;
+  animation: ${cardOnStart} 3s -${({ delay }) => 1.5 - delay * 0.1}s;
   transition: 0.2s;
   &:hover {
     transform: translate(0, -10%) rotate(2deg);
@@ -204,6 +207,7 @@ const Cards = ({
   onDragEnter,
   onDrop,
   isFinish,
+  delay,
   ...props
 }) => {
   return (
@@ -213,6 +217,7 @@ const Cards = ({
       onDragEnter={onDragEnter}
       onDragEnd={onDrop}
       isFinish={isFinish}
+      delay={delay}
       {...props}
     >
       <CardInfo>

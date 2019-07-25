@@ -28,7 +28,7 @@ const IconMV = keyframes`
 const StartWrapper = styled.div`
   position: absolute;
   width: 100%;
-  height: ${props => (props.open ? "100%" : "0")};
+  height: ${props => (props.open ? "110%" : "0")};
   top: 0;
   left: 0;
   background-color: #2c2b50;
@@ -37,8 +37,9 @@ const StartWrapper = styled.div`
   background-position: top;
   background-repeat: no-repeat;
   overflow: hidden;
-  transition: 0.5s;
+  transition: 1.5s;
   z-index: 50;
+  ${({open})=>open?'clip-path: polygon(0% 0%,100% 0%,100% 100%,50% 100%,0 100%);':'clip-path: polygon(0% 0%,100% 0%,100% 0%,50% -200%,0 0%);'}
 `;
 
 const BottomBg = styled.div`

@@ -6,10 +6,11 @@ import CardBox from "../components/CardBox";
 import Controller from "../components/Controller";
 import Dialog from "../components/Dialog";
 import StartContainer from "./StartContainer";
+import WinContainer from "./WinContainer";
 
 const POKER = [];
-for (let t = 1; t <= 4; t++) {
-  for (let n = 1; n <= 13; n++) {
+for (let n = 1; n <= 13; n++) {
+  for (let t = 1; t <= 4; t++) {
     POKER.push({
       type: t,
       number: n
@@ -23,19 +24,20 @@ const EMPTY_All = JSON.stringify({
   table: [[], [], [], [], [], [], [], []]
 });
 
-let onStartCards = {};
+let stepsHistory = [];
 
 const MainContainer = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100vh;
+  width: ${({ windowWidth }) => windowWidth < 1280 ? '1280px' : '100%'};
+  height: ${({ windowWidth }) => windowWidth < 1280 ? '800px' : '100%'};
   min-width: 1280px;
   min-height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  // transform: scale(${({windowWidth})=>windowWidth/1280});
+  transform-origin: top left;
+  transform: scale(${({ windowWidth }) => windowWidth < 1280 ? windowWidth / 1280 : 1});
 `;
 const CardsTable = styled.div`
   position: relative;
@@ -69,9 +71,11 @@ class Main extends React.PureComponent {
       difficult: 1,
       time: 0,
       move: 0,
+      undoUsed: 0,
       isdialogOpen: false,
       onStartPage: true,
       isPlaying: false,
+      isWin: false,
       dialog: {
         text: "",
         btn1Text: "取消",
@@ -91,14 +95,17 @@ class Main extends React.PureComponent {
   originBox = { name: "storage", index: 0 };
   pickCard = { type: 1, number: 1 };
 
+
   componentDidMount() {
     this.reSizeWindow();
+    const gameW = window.innerWidth;
+    this.setState({ windowWidth: gameW });
   }
 
   reSizeWindow() {
     window.onresize = () => {
       const gameW = window.innerWidth;
-      this.setState({windowWidth: gameW});
+      this.setState({ windowWidth: gameW });
       console.log("TCL: Main -> gameAreaSize -> gameW", gameW);
     };
   }
@@ -110,12 +117,13 @@ class Main extends React.PureComponent {
 
   shuffle() {
     const newPoker = POKER.slice().sort(
-      () => this.state.difficult / 5 + 0.07 - Math.random()
+      () => this.state.difficult * 0.1 + 0.2 - Math.random()
     );
-    onStartCards = JSON.parse(EMPTY_All);
+    const onStartCards = JSON.parse(EMPTY_All);
     newPoker.map((item, index) => onStartCards.table[index % 8].push(item));
+    stepsHistory = [JSON.stringify(onStartCards)];
     this.setState({ ...onStartCards });
-    console.log("TCL: Main -> shuffle -> onStartCards", onStartCards);
+    console.log("TCL: Main -> shuffle -> onStartCards", onStartCards, stepsHistory);
   }
 
   onEnter() {
@@ -153,7 +161,8 @@ class Main extends React.PureComponent {
       move: 0,
       isdialogOpen: false,
       onStartPage: true,
-      isPlaying: false
+      isPlaying: false,
+      isWin: false
     });
   }
 
@@ -163,15 +172,9 @@ class Main extends React.PureComponent {
       time: 0,
       move: 0,
       isdialogOpen: false,
-      storage: [...onStartCards.storage],
-      finish: [...onStartCards.finish],
-      table: [...onStartCards.table]
+      isWin: false,
+      ...JSON.parse(stepsHistory[0])
     });
-    console.log(
-      "TCL: Main -> restartGame -> onStartCards",
-      onStartCards,
-      this.state
-    );
   }
 
   onStop() {
@@ -187,7 +190,6 @@ class Main extends React.PureComponent {
       },
       isdialogOpen: true
     });
-    console.log("onStop");
   }
   onPause() {
     this.pause();
@@ -200,10 +202,17 @@ class Main extends React.PureComponent {
       },
       isdialogOpen: true
     });
-    console.log("onPause");
   }
   onUndo() {
-    console.log("onUndo");
+    const nowStep = this.state.move;
+    if (nowStep) {
+      this.setState({
+        ...JSON.parse(stepsHistory[nowStep - 1]),
+        move: nowStep - 1,
+        undoUsed: this.state.undoUsed + 1
+      });
+      stepsHistory.splice(-1);
+    }
   }
   onRestart() {
     this.pause();
@@ -218,18 +227,23 @@ class Main extends React.PureComponent {
       },
       isdialogOpen: true
     });
-    console.log("onRestart");
   }
   onTips() {
     console.log("onTips");
   }
 
   // 移動相關
-  updateCardBox(key, value) {
+  updateCardBox(key, value, key2, value2) {
     let data = {};
     data[key] = value;
-    this.setState({ data });
-    console.log("TCL: Main -> updateCardBox -> this.state", this.state);
+    let data2 = {};
+    data2[key2] = value2;
+    const stepNowCards = JSON.parse(stepsHistory[this.state.move]);
+    stepNowCards[key] = value;
+    stepNowCards[key2] = value2;
+    stepsHistory.push(JSON.stringify(stepNowCards));
+    this.setState({ data, data2, move: this.state.move + 1 });
+    console.log(stepsHistory)
   }
 
   handleDoubleClickItem(type, number, name, index) {
@@ -248,18 +262,8 @@ class Main extends React.PureComponent {
           item.type !== this.pickCard.type ||
           item.number !== this.pickCard.number
       );
-      this.updateCardBox(name, setOriginBox);
-      console.log(
-        "TCL: Main -> handleDoubleClickItem -> name, setOriginBox",
-        name,
-        setOriginBox
-      );
-      this.updateCardBox("finish", newBoxContent);
-      console.log(
-        "TCL: Main -> handleDoubleClickItem -> newBoxContent",
-        newBoxContent
-      );
-      this.setState({ move: this.state.move + 1 });
+      this.updateCardBox(name, setOriginBox, "finish", newBoxContent);
+      this.winTheGame();
     }
   }
 
@@ -271,6 +275,14 @@ class Main extends React.PureComponent {
   handleDragOver(e, name, index) {
     e.preventDefault();
     this.targetBox = { name, index };
+  }
+
+  winTheGame() {
+    const isWin = this.state.finish.every(item => item.length > 12);
+    if (isWin) {
+      this.pause();
+      this.setState({ isWin: true });
+    }
   }
 
   // 移動判斷
@@ -291,9 +303,7 @@ class Main extends React.PureComponent {
               item.type !== this.pickCard.type ||
               item.number !== this.pickCard.number
           );
-          this.updateCardBox(this.originBox.name, setOriginBox);
-          this.updateCardBox(this.targetBox.name, newBoxContent);
-          this.setState({ move: this.state.move + 1 });
+          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
         }
         break;
 
@@ -317,9 +327,8 @@ class Main extends React.PureComponent {
               item.type !== this.pickCard.type ||
               item.number !== this.pickCard.number
           );
-          this.updateCardBox(this.originBox.name, setOriginBox);
-          this.updateCardBox(this.targetBox.name, newBoxContent);
-          this.setState({ move: this.state.move + 1 });
+          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
+          this.winTheGame();
         }
         break;
 
@@ -348,9 +357,7 @@ class Main extends React.PureComponent {
               item.type !== this.pickCard.type ||
               item.number !== this.pickCard.number
           );
-          this.updateCardBox(this.originBox.name, setOriginBox);
-          this.updateCardBox(this.targetBox.name, newBoxContent);
-          this.setState({ move: this.state.move + 1 });
+          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
         }
         break;
 
@@ -369,8 +376,9 @@ class Main extends React.PureComponent {
           setDifficult={num => this.setDifficult(num)}
           nowDifficult={this.state.difficult}
         />
+        <WinContainer open={this.state.isWin} time={this.state.time} move={this.state.move} onClick={() => this.backToStart()} />
         <NavTop time={this.state.time} move={this.state.move} />
-        <CardsTable blur={this.state.isdialogOpen}>
+        <CardsTable blur={this.state.isdialogOpen || this.state.isWin}>
           <CardArea>
             {this.state.storage.map((item, index) => (
               <CardBox
@@ -444,6 +452,7 @@ class Main extends React.PureComponent {
                     type={cards.type}
                     number={cards.number}
                     key={cards.type + "x" + cards.number}
+                    delay={index}
                     onDoubleClick={() =>
                       this.handleDoubleClickItem(
                         cards.type,
@@ -475,7 +484,7 @@ class Main extends React.PureComponent {
           </CardArea>
         </CardsTable>
         <Controller
-          hidden={this.state.isdialogOpen}
+          hidden={this.state.isdialogOpen || this.state.isWin}
           onStop={() => this.onStop()}
           onPause={() => this.onPause()}
           onUndo={() => this.onUndo()}
