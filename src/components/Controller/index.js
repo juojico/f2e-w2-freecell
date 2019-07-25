@@ -85,19 +85,19 @@ const Controller = ({ onStop, onPause, onUndo, onRestart, onTips, hidden }) => {
   return (
     <ControllerBg hidden={hidden}>
       <ControllBtn icon={stop} onClick={onStop}>
-        <span>新局</span>
+        <span>New Game</span>
       </ControllBtn>
       <ControllBtn icon={pause} onClick={onPause}>
-        <span>暫停遊戲</span>
+        <span>Pause</span>
       </ControllBtn>
       <UndoBtn onClick={onUndo}>
         <Button text={"UNDO"} />
       </UndoBtn>
       <ControllBtn icon={undo} onClick={onRestart}>
-        <span>重開本局</span>
+        <span>Restart</span>
       </ControllBtn>
       <ControllBtn icon={tips} onClick={onTips}>
-        <span>提示</span>
+        <span>Hint</span>
       </ControllBtn>
     </ControllerBg>
   );

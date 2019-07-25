@@ -16,6 +16,15 @@ const MainBoxMV = keyframes`
     }
 `;
 
+const IconMV = keyframes`
+    75% {
+      transform: scale(1.375);
+    }
+    to {
+      transform: scale(1.375) rotate(360deg);
+    }
+`;
+
 const StartWrapper = styled.div`
   position: absolute;
   width: 100%;
@@ -35,15 +44,15 @@ const StartWrapper = styled.div`
 const BottomBg = styled.div`
   position: absolute;
   width: 100%;
-  height: 27vh;
-  bottom: 0;
+  height: 100%;
+  top: 585px;
   background: #2c2b50;
 `;
 
 const MainBox = styled.div`
   position: absolute;
   height: 450px;
-  bottom: 0;
+  top: 345px;
   left: 50%;
   color: #9e99ff;
   text-align: center;
@@ -67,6 +76,7 @@ const MainBox = styled.div`
     &:active,
     &[active="true"] {
       opacity: 1;
+      text-shadow: 0 0 10px #9e99ff;
     }
   }
 `;
@@ -86,14 +96,24 @@ const TypesBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  top: 33%;
+  top: 250px;
   left: 50%;
   width: 190px;
   transform: translate(-50%, -50%);
   & svg {
     transform: scale(1.375);
+    animation: ${IconMV} 4s infinite;
     path {
       fill: #a1c8ff;
+    }
+    &:nth-child(4n+2) {
+      animation: ${IconMV} 4s .2s infinite;
+    }
+    &:nth-child(4n+3) {
+      animation: ${IconMV} 4s .4s infinite;
+    }
+    &:nth-child(4n) {
+      animation: ${IconMV} 4s .6s infinite;
     }
   }
 `;

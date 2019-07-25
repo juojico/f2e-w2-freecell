@@ -30,8 +30,8 @@ const DialogBg = styled.div`
 
 const DialogBox = styled.div`
   position: absolute;
-  width: 640px;
-  height: 320px;
+  width: 300px;
+  height: 200px;
   top: ${props => (props.open ? "50%" : "48%")};
   left: 50%;
   transform: translate(-50%, -50%);

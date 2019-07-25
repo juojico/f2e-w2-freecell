@@ -17,10 +17,16 @@ for (let t = 1; t <= 4; t++) {
   }
 }
 
+const EMPTY_All = JSON.stringify({
+  storage: [[], [], [], []],
+  finish: [[], [], [], []],
+  table: [[], [], [], [], [], [], [], []]
+});
+
 let onStartCards = {};
 
 const MainContainer = styled.div`
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100vh;
   min-width: 1280px;
@@ -29,6 +35,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  // transform: scale(${({windowWidth})=>windowWidth/1280});
 `;
 const CardsTable = styled.div`
   position: relative;
@@ -58,6 +65,7 @@ class Main extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      windowWidth: 1280,
       difficult: 1,
       time: 0,
       move: 0,
@@ -75,18 +83,7 @@ class Main extends React.PureComponent {
         only: false
       },
       originPoker: POKER,
-      storage: [[], [], [], []],
-      finish: [[], [], [], []],
-      table: [
-        POKER.slice(0, 7),
-        POKER.slice(7, 14),
-        POKER.slice(14, 21),
-        POKER.slice(21, 28),
-        POKER.slice(28, 34),
-        POKER.slice(34, 40),
-        POKER.slice(40, 46),
-        POKER.slice(46, 52)
-      ]
+      ...JSON.parse(EMPTY_All)
     };
   }
 
@@ -94,7 +91,17 @@ class Main extends React.PureComponent {
   originBox = { name: "storage", index: 0 };
   pickCard = { type: 1, number: 1 };
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.reSizeWindow();
+  }
+
+  reSizeWindow() {
+    window.onresize = () => {
+      const gameW = window.innerWidth;
+      this.setState({windowWidth: gameW});
+      console.log("TCL: Main -> gameAreaSize -> gameW", gameW);
+    };
+  }
 
   setDifficult(num) {
     this.setState({ difficult: num });
@@ -102,37 +109,13 @@ class Main extends React.PureComponent {
   }
 
   shuffle() {
-    const newPoker = new Array(...POKER);
-    newPoker.sort(() => this.state.difficult / 5 + 0.07 - Math.random());
-    console.log("TCL: POKER", POKER, newPoker);
-    onStartCards = {
-      storage: [[], [], [], []],
-      finish: [[], [], [], []],
-      table: [
-        newPoker.slice(0, 7),
-        newPoker.slice(7, 14),
-        newPoker.slice(14, 21),
-        newPoker.slice(21, 28),
-        newPoker.slice(28, 34),
-        newPoker.slice(34, 40),
-        newPoker.slice(40, 46),
-        newPoker.slice(46, 52)
-      ]
-    };
-    this.setState({
-      storage: [[], [], [], []],
-      finish: [[], [], [], []],
-      table: [
-        newPoker.slice(0, 7),
-        newPoker.slice(7, 14),
-        newPoker.slice(14, 21),
-        newPoker.slice(21, 28),
-        newPoker.slice(28, 34),
-        newPoker.slice(34, 40),
-        newPoker.slice(40, 46),
-        newPoker.slice(46, 52)
-      ]
-    });
+    const newPoker = POKER.slice().sort(
+      () => this.state.difficult / 5 + 0.07 - Math.random()
+    );
+    onStartCards = JSON.parse(EMPTY_All);
+    newPoker.map((item, index) => onStartCards.table[index % 8].push(item));
+    this.setState({ ...onStartCards });
+    console.log("TCL: Main -> shuffle -> onStartCards", onStartCards);
   }
 
   onEnter() {
@@ -238,16 +221,6 @@ class Main extends React.PureComponent {
     console.log("onRestart");
   }
   onTips() {
-    this.pause();
-    this.setState({
-      dialog: {
-        text: "提示",
-        btn1Text: "關閉",
-        btn1Click: () => this.backToGame(),
-        only: true
-      },
-      isdialogOpen: true
-    });
     console.log("onTips");
   }
 
@@ -256,6 +229,7 @@ class Main extends React.PureComponent {
     let data = {};
     data[key] = value;
     this.setState({ data });
+    console.log("TCL: Main -> updateCardBox -> this.state", this.state);
   }
 
   handleDoubleClickItem(type, number, name, index) {
@@ -387,7 +361,7 @@ class Main extends React.PureComponent {
 
   render() {
     return (
-      <MainContainer>
+      <MainContainer windowWidth={this.state.windowWidth}>
         <Dialog open={this.state.isdialogOpen} data={this.state.dialog} />
         <StartContainer
           open={this.state.onStartPage}
@@ -479,6 +453,14 @@ class Main extends React.PureComponent {
                       )
                     }
                     onDragStart={() =>
+                      this.handleDragStart(
+                        cards.type,
+                        cards.number,
+                        "table",
+                        index
+                      )
+                    }
+                    onTouchStart={() =>
                       this.handleDragStart(
                         cards.type,
                         cards.number,
