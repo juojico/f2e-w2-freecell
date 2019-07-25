@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import "../../App.css";
 import cardBg from "../../slice_img/cards/card_bg.svg";
 import blackJ from "../../slice_img/cards/black_j.svg";
@@ -34,6 +34,12 @@ import { ReactComponent as Num11 } from "../../slice_img/cards/num_11.svg";
 import { ReactComponent as Num12 } from "../../slice_img/cards/num_12.svg";
 import { ReactComponent as Num13 } from "../../slice_img/cards/num_13.svg";
 
+const cardOnStart = keyframes`
+ from {
+  margin-bottom: -140px;
+ }
+`;
+
 const CardsBg = styled.div`
   position: relative;
   background: url(${cardBg});
@@ -41,12 +47,19 @@ const CardsBg = styled.div`
   height: 140px;
   box-shadow: 0 -5px 10px rgba(44, 43, 80, 0.1);
   border-radius: 16px;
-  margin-bottom: -104px;
+  margin-bottom: ${({ isFinish }) => (isFinish ? "-140px" : "-104px")};
   cursor: pointer;
-  transition: .2s;
+  user-select: none;
+  // pointer-events: none;
+  animation: ${cardOnStart} 2s;
+  transition: 0.2s;
   &:hover {
-    transform: translate(0, -10%) rotate(5deg);
-    box-shadow: 0 5px 15px rgba(44, 43, 80, 0.1);
+    transform: translate(0, -10%) rotate(2deg);
+    box-shadow: 0 0px 15px 5px rgba(44, 43, 80, 0.2);
+  }
+  &:last-child {
+    margin-bottom: 0;
+    pointer-events: auto;
   }
 `;
 
@@ -99,50 +112,52 @@ const witchMainImg = (number, type) => {
     }
   } else {
     switch (type) {
-      case 1 :
-      switch (number) {
-        case 11:
-          return blackJ;
-        case 12:
-          return blackQ;
-        case 13:
-          return blackK;
-        default:
-          return blackJ;
-      }
-      case 2 :
-      switch (number) {
-        case 11:
-          return blackJ2;
-        case 12:
-          return blackQ;
-        case 13:
-          return blackK2;
-        default:
-          return blackJ2;
-      }
-      case 3 :
-      switch (number) {
-        case 11:
-          return redJ;
-        case 12:
-          return redQ;
-        case 13:
-          return redK;
-        default:
-          return redJ;
-      }
-      case 4 :
-      switch (number) {
-        case 11:
-          return redJ2;
-        case 12:
-          return redQ;
-        case 13:
-          return redK2;
-        default:
-          return redJ2;
-      }
+      case 1:
+        switch (number) {
+          case 11:
+            return blackJ;
+          case 12:
+            return blackQ;
+          case 13:
+            return blackK;
+          default:
+            return blackJ;
+        }
+      case 2:
+        switch (number) {
+          case 11:
+            return blackJ2;
+          case 12:
+            return blackQ;
+          case 13:
+            return blackK2;
+          default:
+            return blackJ2;
+        }
+      case 3:
+        switch (number) {
+          case 11:
+            return redJ;
+          case 12:
+            return redQ;
+          case 13:
+            return redK;
+          default:
+            return redJ;
+        }
+      case 4:
+        switch (number) {
+          case 11:
+            return redJ2;
+          case 12:
+            return redQ;
+          case 13:
+            return redK2;
+          default:
+            return redJ2;
+        }
+      default:
+        return blackJ;
     }
   }
 };
@@ -182,9 +197,24 @@ const witchNumber = (number, type) => {
   }
 };
 
-const Cards = ({ number, type, ...props }) => {
+const Cards = ({
+  number,
+  type,
+  onDragStart,
+  onDragEnter,
+  onDrop,
+  isFinish,
+  ...props
+}) => {
   return (
-    <CardsBg {...props}>
+    <CardsBg
+      draggable
+      onDragStart={onDragStart}
+      onDragEnter={onDragEnter}
+      onDragEnd={onDrop}
+      isFinish={isFinish}
+      {...props}
+    >
       <CardInfo>
         {witchNumber(number, type)}
         <img src={witchType(type)} alt='cardType' />

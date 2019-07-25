@@ -6,9 +6,10 @@ import Button from "../../components/Button";
 const DialogWrapper = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: ${props => (props.open ? "100%" : "0")};
   top: ${props => (props.open ? "0" : "100%")};
   left: 0;
+  overflow: hidden;
   z-index: 100;
   transition: 0.5s ease-in-out;
 `;
@@ -19,7 +20,7 @@ const DialogBg = styled.div`
   top: 0;
   left: 0;
   background: url(${Cloud});
-  background-size: contain;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: bottom;
   pointer-events: none;
@@ -49,17 +50,24 @@ const BtnBox = styled.div`
   align-item: center;
 `;
 
-const Dialog = ({
-  open,
-  data
-}) => {
+const Dialog = ({ open, data }) => {
   return (
     <DialogWrapper open={open}>
       <DialogBox open={open}>
         <h2>{data.text}</h2>
         <BtnBox>
-          <Button text={data.btn1Text} onClick={data.btn1Click} type={data.btn1Type} />
-          {data.only ? null : <Button text={data.btn2Text} onClick={data.btn2Click} type={data.btn2Type} />}
+          <Button
+            text={data.btn1Text}
+            onClick={data.btn1Click}
+            type={data.btn1Type}
+          />
+          {data.only ? null : (
+            <Button
+              text={data.btn2Text}
+              onClick={data.btn2Click}
+              type={data.btn2Type}
+            />
+          )}
         </BtnBox>
       </DialogBox>
       <DialogBg />

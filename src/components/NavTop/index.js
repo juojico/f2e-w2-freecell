@@ -4,9 +4,9 @@ import freecell from "../../slice_img/ui/logo_freecell.svg";
 
 const colorMove = keyframes`
     to {
-        background-position: 100% 0%;
+      filter: hue-rotate(10deg);
     }
-`
+`;
 const NavTopBg = styled.div`
   box-sizing: border-box;
   position: relative;
@@ -15,7 +15,6 @@ const NavTopBg = styled.div`
     rgba(93, 127, 217, 1) 0%,
     rgba(137, 87, 237, 1) 100%
   );
-  background-size: 200%;
   width: 100%;
   height: 60px;
   padding: 14px 48px;

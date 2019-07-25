@@ -9,13 +9,14 @@ const CardBoxBg = styled.div`
   box-sizing: border-box;
   position: relative;
   width: 135px;
-  height: 140px;
+  height: ${({ type }) => (type === "table" ? "none" : "140px")};
+  min-height: 140px;
   background: ${props =>
     props.type === "finish"
       ? "rgba(158, 153, 255, .5)"
       : "rgba(158, 153, 255, .2)"};
   border-radius: 16px;
-  &>svg {
+  & > svg {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -41,9 +42,22 @@ const witchCardType = cardType => {
       return <CardType1 />;
   }
 };
-const CardBox = ({ type = "table", cardType = 1, children }) => {
+const CardBox = ({
+  type = "table",
+  cardType = 1,
+  children,
+  onDragOver,
+  onDrop,
+  ...props
+}) => {
   return (
-    <CardBoxBg type={type} cardType={cardType}>
+    <CardBoxBg
+      type={type}
+      cardType={cardType}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+      {...props}
+    >
       {type === "finish" ? witchCardType(cardType) : ""}
       {children}
     </CardBoxBg>

@@ -17,20 +17,18 @@ for (let t = 1; t <= 4; t++) {
   }
 }
 
-const DIFFICULT = 0.3;
-
-POKER.sort(() => DIFFICULT - Math.random());
-console.log("TCL: POKER", POKER);
+let onStartCards = {};
 
 const MainContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
+  min-width: 1280px;
+  min-height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  overflow: hidden;
 `;
 const CardsTable = styled.div`
   position: relative;
@@ -51,7 +49,7 @@ const CardArea = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
   margin: 0 auto;
   margin-top: 40px;
 `;
@@ -60,7 +58,7 @@ class Main extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      difficult: DIFFICULT,
+      difficult: 1,
       time: 0,
       move: 0,
       isdialogOpen: false,
@@ -88,27 +86,64 @@ class Main extends React.PureComponent {
         POKER.slice(34, 40),
         POKER.slice(40, 46),
         POKER.slice(46, 52)
-      ],
-      onStartCards: {
-        storage: [[], [], [], []],
-        finish: [[], [], [], []],
-        table: [
-          POKER.slice(0, 7),
-          POKER.slice(7, 14),
-          POKER.slice(14, 21),
-          POKER.slice(21, 28),
-          POKER.slice(28, 34),
-          POKER.slice(34, 40),
-          POKER.slice(40, 46),
-          POKER.slice(46, 52)
-        ]
-      }
+      ]
     };
   }
 
-  componentDidMount() {
-    console.log(this.state);
+  targetBox = { name: "storage", index: 0 };
+  originBox = { name: "storage", index: 0 };
+  pickCard = { type: 1, number: 1 };
+
+  componentDidMount() {}
+
+  setDifficult(num) {
+    this.setState({ difficult: num });
+    console.log("TCL: Main -> setDifficult -> num", num, this.state.difficult);
   }
+
+  shuffle() {
+    const newPoker = new Array(...POKER);
+    newPoker.sort(() => this.state.difficult / 5 + 0.07 - Math.random());
+    console.log("TCL: POKER", POKER, newPoker);
+    onStartCards = {
+      storage: [[], [], [], []],
+      finish: [[], [], [], []],
+      table: [
+        newPoker.slice(0, 7),
+        newPoker.slice(7, 14),
+        newPoker.slice(14, 21),
+        newPoker.slice(21, 28),
+        newPoker.slice(28, 34),
+        newPoker.slice(34, 40),
+        newPoker.slice(40, 46),
+        newPoker.slice(46, 52)
+      ]
+    };
+    this.setState({
+      storage: [[], [], [], []],
+      finish: [[], [], [], []],
+      table: [
+        newPoker.slice(0, 7),
+        newPoker.slice(7, 14),
+        newPoker.slice(14, 21),
+        newPoker.slice(21, 28),
+        newPoker.slice(28, 34),
+        newPoker.slice(34, 40),
+        newPoker.slice(40, 46),
+        newPoker.slice(46, 52)
+      ]
+    });
+  }
+
+  onEnter() {
+    this.play();
+    this.shuffle();
+    this.setState({
+      onStartPage: false,
+      isPlaying: true
+    });
+  }
+
   play() {
     const intervalId = setInterval(() => {
       this.setState({ time: this.state.time + 1 });
@@ -118,6 +153,7 @@ class Main extends React.PureComponent {
 
   pause() {
     clearInterval(this.state.intervalId);
+    this.setState({ intervalId: "" });
   }
 
   backToGame() {
@@ -143,16 +179,16 @@ class Main extends React.PureComponent {
     this.setState({
       time: 0,
       move: 0,
-      isdialogOpen: false
+      isdialogOpen: false,
+      storage: [...onStartCards.storage],
+      finish: [...onStartCards.finish],
+      table: [...onStartCards.table]
     });
-  }
-
-  onEnter() {
-    this.play();
-    this.setState({
-      onStartPage: false,
-      isPlaying: true,
-    });
+    console.log(
+      "TCL: Main -> restartGame -> onStartCards",
+      onStartCards,
+      this.state
+    );
   }
 
   onStop() {
@@ -215,44 +251,241 @@ class Main extends React.PureComponent {
     console.log("onTips");
   }
 
-  handleCardClick(event) {
-    console.log('handleCardClick', event.target);
+  // 移動相關
+  updateCardBox(key, value) {
+    let data = {};
+    data[key] = value;
+    this.setState({ data });
   }
 
-  handleDoubleClickItem(event) {
-    console.log('handleDoubleClickItem', event.target);
+  handleDoubleClickItem(type, number, name, index) {
+    this.pickCard = { type, number };
+    this.originBox = { name, index };
+    const newBoxContent = this.state["finish"];
+    const setOriginBox = this.state[name];
+    let newLastCard = { type: type, number: 0 };
+    if (newBoxContent[type - 1].length > 0) {
+      newLastCard = new Array(...newBoxContent[type - 1]).pop();
+    }
+    if (newLastCard.number === number - 1) {
+      newBoxContent[type - 1] = [...newBoxContent[type - 1], this.pickCard];
+      setOriginBox[index] = setOriginBox[index].filter(
+        item =>
+          item.type !== this.pickCard.type ||
+          item.number !== this.pickCard.number
+      );
+      this.updateCardBox(name, setOriginBox);
+      console.log(
+        "TCL: Main -> handleDoubleClickItem -> name, setOriginBox",
+        name,
+        setOriginBox
+      );
+      this.updateCardBox("finish", newBoxContent);
+      console.log(
+        "TCL: Main -> handleDoubleClickItem -> newBoxContent",
+        newBoxContent
+      );
+      this.setState({ move: this.state.move + 1 });
+    }
+  }
+
+  handleDragStart(type, number, name, index) {
+    this.pickCard = { type, number };
+    this.originBox = { name, index };
+  }
+
+  handleDragOver(e, name, index) {
+    e.preventDefault();
+    this.targetBox = { name, index };
+  }
+
+  // 移動判斷
+  handleDrop(e) {
+    e.preventDefault();
+
+    const newBoxContent = this.state[this.targetBox.name];
+    const setOriginBox = this.state[this.originBox.name];
+    console.log("TCL: Main -> handleDrop -> setOriginBox", setOriginBox);
+    switch (this.targetBox.name) {
+      case "storage":
+        if (newBoxContent[this.targetBox.index].length < 1) {
+          newBoxContent[this.targetBox.index] = [this.pickCard];
+          setOriginBox[this.originBox.index] = setOriginBox[
+            this.originBox.index
+          ].filter(
+            item =>
+              item.type !== this.pickCard.type ||
+              item.number !== this.pickCard.number
+          );
+          this.updateCardBox(this.originBox.name, setOriginBox);
+          this.updateCardBox(this.targetBox.name, newBoxContent);
+          this.setState({ move: this.state.move + 1 });
+        }
+        break;
+
+      case "finish":
+        let newLastCard = { type: this.targetBox.index + 1, number: 0 };
+        if (newBoxContent[this.targetBox.index].length > 0) {
+          newLastCard = new Array(...newBoxContent[this.targetBox.index]).pop();
+        }
+        if (
+          newLastCard.type === this.pickCard.type &&
+          newLastCard.number === this.pickCard.number - 1
+        ) {
+          newBoxContent[this.targetBox.index] = [
+            ...newBoxContent[this.targetBox.index],
+            this.pickCard
+          ];
+          setOriginBox[this.originBox.index] = setOriginBox[
+            this.originBox.index
+          ].filter(
+            item =>
+              item.type !== this.pickCard.type ||
+              item.number !== this.pickCard.number
+          );
+          this.updateCardBox(this.originBox.name, setOriginBox);
+          this.updateCardBox(this.targetBox.name, newBoxContent);
+          this.setState({ move: this.state.move + 1 });
+        }
+        break;
+
+      case "table":
+        let newTableLastCard = { type: 1, number: 0 };
+        if (newBoxContent[this.targetBox.index].length > 0) {
+          newTableLastCard = new Array(
+            ...newBoxContent[this.targetBox.index]
+          ).pop();
+        }
+        const newLastCardColor = newTableLastCard.type > 2 ? "red" : "black";
+        const pickCardColor = this.pickCard.type > 2 ? "red" : "black";
+        if (
+          newTableLastCard.number === 0 ||
+          (newLastCardColor !== pickCardColor &&
+            newTableLastCard.number - 1 === this.pickCard.number)
+        ) {
+          newBoxContent[this.targetBox.index] = [
+            ...newBoxContent[this.targetBox.index],
+            this.pickCard
+          ];
+          setOriginBox[this.originBox.index] = setOriginBox[
+            this.originBox.index
+          ].filter(
+            item =>
+              item.type !== this.pickCard.type ||
+              item.number !== this.pickCard.number
+          );
+          this.updateCardBox(this.originBox.name, setOriginBox);
+          this.updateCardBox(this.targetBox.name, newBoxContent);
+          this.setState({ move: this.state.move + 1 });
+        }
+        break;
+
+      default:
+        break;
+    }
   }
 
   render() {
     return (
       <MainContainer>
-        <Dialog
-          open={this.state.isdialogOpen}
-          data={this.state.dialog}
+        <Dialog open={this.state.isdialogOpen} data={this.state.dialog} />
+        <StartContainer
+          open={this.state.onStartPage}
+          onClick={() => this.onEnter()}
+          setDifficult={num => this.setDifficult(num)}
+          nowDifficult={this.state.difficult}
         />
-        <StartContainer open={this.state.onStartPage} onClick={()=>this.onEnter()} />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen}>
           <CardArea>
-            <CardBox />
-            <CardBox />
-            <CardBox />
-            <CardBox />
-            <CardBox type='finish' cardType={1} />
-            <CardBox type='finish' cardType={2} />
-            <CardBox type='finish' cardType={3} />
-            <CardBox type='finish' cardType={4} />
-          </CardArea>
-          <CardArea>
-            {this.state.table.map((item, index) => (
-              <CardBox key={index}>
+            {this.state.storage.map((item, index) => (
+              <CardBox
+                key={`storage${index}`}
+                type='storage'
+                onDragOver={e => this.handleDragOver(e, "storage", index)}
+                onDrop={e => this.handleDrop(e)}
+              >
                 {item.map(cards => (
                   <Cards
                     type={cards.type}
                     number={cards.number}
                     key={cards.type + "x" + cards.number}
-                    onClick={this.handleCardClick}
-                    onDoubleClick={this.handleDoubleClickItem}
+                    onDoubleClick={() =>
+                      this.handleDoubleClickItem(
+                        cards.type,
+                        cards.number,
+                        "storage",
+                        index
+                      )
+                    }
+                    onDragStart={() =>
+                      this.handleDragStart(
+                        cards.type,
+                        cards.number,
+                        "storage",
+                        index
+                      )
+                    }
+                  />
+                ))}
+              </CardBox>
+            ))}
+            {this.state.finish.map((item, index) => (
+              <CardBox
+                key={`finish${index}`}
+                type='finish'
+                cardType={index + 1}
+                onDragOver={e => this.handleDragOver(e, "finish", index)}
+                onDrop={e => this.handleDrop(e)}
+              >
+                {item.map(cards => (
+                  <Cards
+                    type={cards.type}
+                    number={cards.number}
+                    key={cards.type + "x" + cards.number}
+                    isFinish
+                    onDragStart={() =>
+                      this.handleDragStart(
+                        cards.type,
+                        cards.number,
+                        "finish",
+                        index
+                      )
+                    }
+                  />
+                ))}
+              </CardBox>
+            ))}
+          </CardArea>
+          <CardArea>
+            {this.state.table.map((item, index) => (
+              <CardBox
+                key={`table${index}`}
+                type='table'
+                onDragOver={e => this.handleDragOver(e, "table", index)}
+                onDrop={e => this.handleDrop(e)}
+              >
+                {item.map(cards => (
+                  <Cards
+                    type={cards.type}
+                    number={cards.number}
+                    key={cards.type + "x" + cards.number}
+                    onDoubleClick={() =>
+                      this.handleDoubleClickItem(
+                        cards.type,
+                        cards.number,
+                        "table",
+                        index
+                      )
+                    }
+                    onDragStart={() =>
+                      this.handleDragStart(
+                        cards.type,
+                        cards.number,
+                        "table",
+                        index
+                      )
+                    }
                   />
                 ))}
               </CardBox>
