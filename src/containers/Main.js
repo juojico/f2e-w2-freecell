@@ -88,7 +88,8 @@ class Main extends React.PureComponent {
         only: false
       },
       originPoker: POKER,
-      ...JSON.parse(EMPTY_All)
+      ...JSON.parse(EMPTY_All),
+      hint: []
     };
   }
 
@@ -260,20 +261,29 @@ class Main extends React.PureComponent {
       const isSameType = (a, b) =>
         (a > 2 ? true : false) === (b > 2 ? true : false);
 
-      const sameNumber = array.filter(
-        (card, cardIndex) =>
+      array.map((card, cardIndex) => {
+        if (
           card.number - 1 === item.number &&
           cardIndex !== index &&
           !isSameType(card.type, item.type)
-      );
+        ) {
+          return isMoveAble.push([index,cardIndex]);
+        }
+      });
 
-      console.log("TCL: Main -> onTips -> sameNumber", item, sameNumber);
-      if (sameNumber.length>0) {
-        isMoveAble.push([index, sameNumber]);
-      }
     });
     console.log("TCL: Main -> onTips -> isMoveAble", isMoveAble);
-
+    if (isMoveAble.length > 0) {
+      isMoveAble.forEach((item,index) => {
+        setTimeout(() => {
+          this.setState({ hint: item });
+          console.log("TCL: Main -> onTips -> hint", this.state.hint);
+        }, 1000*index);
+        setTimeout(() => {
+          this.setState({ hint: '' });
+        }, 1000*index+1000);
+      });
+    }
   }
 
   // 移動相關
@@ -487,7 +497,7 @@ class Main extends React.PureComponent {
             {this.state.storage.map((item, index) => (
               <CardBox
                 key={`storage${index}`}
-                type='storage'
+                type="storage"
                 onDragOver={e => this.handleDragOver(e, "storage", index)}
                 onDrop={e => this.handleDrop(e)}
               >
@@ -521,7 +531,7 @@ class Main extends React.PureComponent {
             {this.state.finish.map((item, index) => (
               <CardBox
                 key={`finish${index}`}
-                type='finish'
+                type="finish"
                 cardType={index + 1}
                 onDragOver={e => this.handleDragOver(e, "finish", index)}
                 onDrop={e => this.handleDrop(e)}
@@ -550,7 +560,8 @@ class Main extends React.PureComponent {
             {this.state.table.map((item, index) => (
               <CardBox
                 key={`table${index}`}
-                type='table'
+                type="table"
+                hint={(index===this.state.hint[0])||(index===this.state.hint[1])}
                 onDragOver={e => this.handleDragOver(e, "table", index)}
                 onDrop={e => this.handleDrop(e)}
               >

@@ -16,6 +16,7 @@ const CardBoxBg = styled.div`
       ? "rgba(158, 153, 255, .5)"
       : "rgba(158, 153, 255, .2)"};
   border-radius: 16px;
+  ${({ hint }) => hint?'box-shadow: 0 0 10px yellow;':'box-shadow: none;'}
   user-select: none;
   & > svg {
     position: absolute;
@@ -49,6 +50,7 @@ const CardBox = ({
   children,
   onDragOver,
   onDrop,
+  hint=false,
   ...props
 }) => {
   return (
@@ -57,6 +59,7 @@ const CardBox = ({
       cardType={cardType}
       onDragOver={onDragOver}
       onDrop={onDrop}
+      hint={hint}
       {...props}
     >
       {type === "finish" ? witchCardType(cardType) : ""}
