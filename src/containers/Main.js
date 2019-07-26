@@ -28,8 +28,8 @@ let stepsHistory = [];
 
 const MainContainer = styled.div`
   position: absolute;
-  width: ${({ windowWidth }) => windowWidth < 1280 ? '1280px' : '100%'};
-  height: ${({ windowWidth }) => windowWidth < 1280 ? '800px' : '100%'};
+  width: ${({ windowWidth }) => (windowWidth < 1280 ? "1280px" : "100%")};
+  height: ${({ windowWidth }) => (windowWidth < 1280 ? "800px" : "100%")};
   min-width: 1280px;
   min-height: 800px;
   display: flex;
@@ -37,7 +37,9 @@ const MainContainer = styled.div`
   align-items: center;
   flex-direction: column;
   transform-origin: top left;
-  transform: scale(${({ windowWidth }) => windowWidth < 1280 ? windowWidth / 1280 : 1});
+  transform: scale(
+    ${({ windowWidth }) => (windowWidth < 1280 ? windowWidth / 1280 : 1)}
+  );
 `;
 const CardsTable = styled.div`
   position: relative;
@@ -90,10 +92,11 @@ class Main extends React.PureComponent {
     };
   }
 
-  targetBox = { name: "storage", index: 0 };
-  originBox = { name: "storage", index: 0 };
-  pickCard = { type: 1, number: 1 };
-
+  targetBox = {};
+  originBox = {};
+  pickCard = {};
+  pickCardsList = [];
+  pickCardIndex = "";
 
   componentDidMount() {
     this.reSizeWindow();
@@ -105,13 +108,11 @@ class Main extends React.PureComponent {
     window.onresize = () => {
       const gameW = window.innerWidth;
       this.setState({ windowWidth: gameW });
-      console.log("TCL: Main -> gameAreaSize -> gameW", gameW);
     };
   }
 
   setDifficult(num) {
     this.setState({ difficult: num });
-    console.log("TCL: Main -> setDifficult -> num", num, this.state.difficult);
   }
 
   shuffle() {
@@ -121,8 +122,14 @@ class Main extends React.PureComponent {
     const onStartCards = JSON.parse(EMPTY_All);
     newPoker.map((item, index) => onStartCards.table[index % 8].push(item));
     stepsHistory = [JSON.stringify(onStartCards)];
-    this.setState({ ...onStartCards });
-    console.log("TCL: Main -> shuffle -> onStartCards", onStartCards, stepsHistory);
+    setTimeout(() => {
+      this.setState({ ...onStartCards });
+    }, 500);
+    console.log(
+      "TCL: Main -> shuffle -> onStartCards",
+      onStartCards,
+      stepsHistory
+    );
   }
 
   winTheGame() {
@@ -239,11 +246,34 @@ class Main extends React.PureComponent {
       },
       isdialogOpen: true
     });
+    stepsHistory.splice(1);
   }
 
   onTips() {
-    const canMoveCard = [this.state.table.map(item=>item.slice(-1))];
-    console.log("onTips", canMoveCard);
+    const canMoveCards = JSON.parse(JSON.stringify(this.state.table)).map(
+      item => item.pop()
+    );
+    console.log("onTips", canMoveCards);
+
+    const isMoveAble = [];
+    canMoveCards.forEach((item, index, array) => {
+      const isSameType = (a, b) =>
+        (a > 2 ? true : false) === (b > 2 ? true : false);
+
+      const sameNumber = array.filter(
+        (card, cardIndex) =>
+          card.number - 1 === item.number &&
+          cardIndex !== index &&
+          !isSameType(card.type, item.type)
+      );
+
+      console.log("TCL: Main -> onTips -> sameNumber", item, sameNumber);
+      if (sameNumber.length>0) {
+        isMoveAble.push([index, sameNumber]);
+      }
+    });
+    console.log("TCL: Main -> onTips -> isMoveAble", isMoveAble);
+
   }
 
   // 移動相關
@@ -257,10 +287,10 @@ class Main extends React.PureComponent {
     stepNowCards[key2] = value2;
     stepsHistory.push(JSON.stringify(stepNowCards));
     this.setState({ data, data2, move: this.state.move + 1 });
-    console.log(stepsHistory)
+    console.log(stepsHistory);
   }
 
-  handleDoubleClickItem(type, number, name, index) {
+  handleDoubleClickItem(type, number, name, index, cardIndex) {
     this.pickCard = { type, number };
     this.originBox = { name, index };
     const newBoxContent = this.state["finish"];
@@ -269,7 +299,10 @@ class Main extends React.PureComponent {
     if (newBoxContent[type - 1].length > 0) {
       newLastCard = new Array(...newBoxContent[type - 1]).pop();
     }
-    if (newLastCard.number === number - 1) {
+    if (
+      newLastCard.number === number - 1 &&
+      cardIndex === setOriginBox[index].length - 1
+    ) {
       newBoxContent[type - 1] = [...newBoxContent[type - 1], this.pickCard];
       setOriginBox[index] = setOriginBox[index].filter(
         item =>
@@ -281,9 +314,34 @@ class Main extends React.PureComponent {
     }
   }
 
-  handleDragStart(type, number, name, index) {
+  handleDragStart(type, number, name, index, cardIndex) {
     this.pickCard = { type, number };
     this.originBox = { name, index };
+    const thisBoxCards = this.state.table[index];
+    const lastIndex = thisBoxCards.length - 1;
+    this.pickCardsList = [];
+    this.pickCardIndex = cardIndex;
+
+    if (name === "table" && cardIndex !== lastIndex) {
+      const afterCards = thisBoxCards.slice(cardIndex);
+      console.log("TCL: Main -> handleDragStart -> afterCards", afterCards);
+
+      const isConnect = afterCards.slice(1).every((item, index) => {
+        const lastCard = thisBoxCards[cardIndex + index];
+        const isSameType =
+          (item.type > 2 ? true : false) === (lastCard.type > 2 ? true : false);
+        return item.number === lastCard.number - 1 && !isSameType;
+      });
+      console.log("TCL: Main -> handleDragStart -> isConnect", isConnect);
+
+      if (isConnect) {
+        this.pickCardsList = [...afterCards];
+      } else {
+        this.pickCard = "";
+        this.pickCardsList = [];
+        this.pickCardIndex = "";
+      }
+    }
   }
 
   handleDragOver(e, name, index) {
@@ -300,7 +358,11 @@ class Main extends React.PureComponent {
     console.log("TCL: Main -> handleDrop -> setOriginBox", setOriginBox);
     switch (this.targetBox.name) {
       case "storage":
-        if (newBoxContent[this.targetBox.index].length < 1) {
+        if (
+          newBoxContent[this.targetBox.index].length < 1 &&
+          this.pickCardsList.length < 1 &&
+          this.pickCard
+        ) {
           newBoxContent[this.targetBox.index] = [this.pickCard];
           setOriginBox[this.originBox.index] = setOriginBox[
             this.originBox.index
@@ -309,8 +371,14 @@ class Main extends React.PureComponent {
               item.type !== this.pickCard.type ||
               item.number !== this.pickCard.number
           );
-          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
+          this.updateCardBox(
+            this.originBox.name,
+            setOriginBox,
+            this.targetBox.name,
+            newBoxContent
+          );
         }
+        this.pickCardsList = [];
         break;
 
       case "finish":
@@ -320,7 +388,8 @@ class Main extends React.PureComponent {
         }
         if (
           newLastCard.type === this.pickCard.type &&
-          newLastCard.number === this.pickCard.number - 1
+          newLastCard.number === this.pickCard.number - 1 &&
+          this.pickCardsList < 1
         ) {
           newBoxContent[this.targetBox.index] = [
             ...newBoxContent[this.targetBox.index],
@@ -333,12 +402,30 @@ class Main extends React.PureComponent {
               item.type !== this.pickCard.type ||
               item.number !== this.pickCard.number
           );
-          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
+          this.updateCardBox(
+            this.originBox.name,
+            setOriginBox,
+            this.targetBox.name,
+            newBoxContent
+          );
           this.winTheGame();
         }
+        this.pickCardsList = [];
         break;
 
       case "table":
+        if (
+          this.originBox.name === "table" &&
+          this.targetBox.index === this.originBox.index
+        ) {
+          console.log(
+            "TCL: Main -> handleDrop -> 目標與來源相同",
+            this.originBox,
+            this.targetBox
+          );
+          break;
+        }
+
         let newTableLastCard = { type: 1, number: 0 };
         if (newBoxContent[this.targetBox.index].length > 0) {
           newTableLastCard = new Array(
@@ -354,16 +441,21 @@ class Main extends React.PureComponent {
         ) {
           newBoxContent[this.targetBox.index] = [
             ...newBoxContent[this.targetBox.index],
-            this.pickCard
+            this.pickCard,
+            ...this.pickCardsList.slice(1)
           ];
-          setOriginBox[this.originBox.index] = setOriginBox[
-            this.originBox.index
-          ].filter(
-            item =>
-              item.type !== this.pickCard.type ||
-              item.number !== this.pickCard.number
+
+          setOriginBox[this.originBox.index].splice(
+            this.pickCardIndex,
+            setOriginBox[this.originBox.index].length - this.pickCardIndex
           );
-          this.updateCardBox(this.originBox.name, setOriginBox, this.targetBox.name, newBoxContent);
+
+          this.updateCardBox(
+            this.originBox.name,
+            setOriginBox,
+            this.targetBox.name,
+            newBoxContent
+          );
         }
         break;
 
@@ -382,7 +474,13 @@ class Main extends React.PureComponent {
           setDifficult={num => this.setDifficult(num)}
           nowDifficult={this.state.difficult}
         />
-        <WinContainer open={this.state.isWin} time={this.state.time} move={this.state.move} undoUsed={this.state.undoUsed} onClick={() => this.backToStart()} />
+        <WinContainer
+          open={this.state.isWin}
+          time={this.state.time}
+          move={this.state.move}
+          undoUsed={this.state.undoUsed}
+          onClick={() => this.backToStart()}
+        />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen || this.state.isWin}>
           <CardArea>
@@ -393,7 +491,7 @@ class Main extends React.PureComponent {
                 onDragOver={e => this.handleDragOver(e, "storage", index)}
                 onDrop={e => this.handleDrop(e)}
               >
-                {item.map(cards => (
+                {item.map((cards, cardIndex) => (
                   <Cards
                     type={cards.type}
                     number={cards.number}
@@ -403,7 +501,8 @@ class Main extends React.PureComponent {
                         cards.type,
                         cards.number,
                         "storage",
-                        index
+                        index,
+                        cardIndex
                       )
                     }
                     onDragStart={() =>
@@ -411,7 +510,8 @@ class Main extends React.PureComponent {
                         cards.type,
                         cards.number,
                         "storage",
-                        index
+                        index,
+                        cardIndex
                       )
                     }
                   />
@@ -426,7 +526,7 @@ class Main extends React.PureComponent {
                 onDragOver={e => this.handleDragOver(e, "finish", index)}
                 onDrop={e => this.handleDrop(e)}
               >
-                {item.map(cards => (
+                {item.map((cards, cardIndex) => (
                   <Cards
                     type={cards.type}
                     number={cards.number}
@@ -437,7 +537,8 @@ class Main extends React.PureComponent {
                         cards.type,
                         cards.number,
                         "finish",
-                        index
+                        index,
+                        cardIndex
                       )
                     }
                   />
@@ -453,7 +554,7 @@ class Main extends React.PureComponent {
                 onDragOver={e => this.handleDragOver(e, "table", index)}
                 onDrop={e => this.handleDrop(e)}
               >
-                {item.map(cards => (
+                {item.map((cards, cardIndex) => (
                   <Cards
                     type={cards.type}
                     number={cards.number}
@@ -464,7 +565,8 @@ class Main extends React.PureComponent {
                         cards.type,
                         cards.number,
                         "table",
-                        index
+                        index,
+                        cardIndex
                       )
                     }
                     onDragStart={() =>
@@ -472,15 +574,8 @@ class Main extends React.PureComponent {
                         cards.type,
                         cards.number,
                         "table",
-                        index
-                      )
-                    }
-                    onTouchStart={() =>
-                      this.handleDragStart(
-                        cards.type,
-                        cards.number,
-                        "table",
-                        index
+                        index,
+                        cardIndex
                       )
                     }
                   />
@@ -490,7 +585,11 @@ class Main extends React.PureComponent {
           </CardArea>
         </CardsTable>
         <Controller
-          hidden={this.state.isdialogOpen || this.state.isWin || this.state.isStartPage}
+          hidden={
+            this.state.isdialogOpen ||
+            this.state.isWin ||
+            this.state.isStartPage
+          }
           onStop={() => this.onStop()}
           onPause={() => this.onPause()}
           onUndo={() => this.onUndo()}

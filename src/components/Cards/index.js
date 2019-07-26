@@ -38,7 +38,7 @@ const cardOnStart = keyframes`
  0% {
   margin-bottom: -140px;
  }
- 60% {
+ 50% {
   margin-bottom: -140px;
  }
 `;
@@ -54,7 +54,7 @@ const CardsBg = styled.div`
   cursor: pointer;
   user-select: none;
   // pointer-events: none;
-  animation: ${cardOnStart} 3s -${({ delay }) => 1.5 - delay * 0.1}s;
+  animation: ${cardOnStart} 2s -${({ delay }) =>1 - delay * 0.05}s;
   transition: 0.2s;
   &:hover {
     transform: translate(0, -10%) rotate(2deg);
