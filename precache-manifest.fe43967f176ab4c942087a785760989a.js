@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5a18b7ec613be0aa1ab086883204e52e",
+    "revision": "7f910a64c4b4262f37a04106819a1064",
     "url": "/f2e-w2-freecell/index.html"
   },
   {
-    "revision": "decf8ad7f42bdc88248d",
+    "revision": "8440e83a09104586797f",
     "url": "/f2e-w2-freecell/static/css/main.75ba14af.chunk.css"
   },
   {
-    "revision": "490ed225965cc3e80728",
-    "url": "/f2e-w2-freecell/static/js/2.b8e4aeeb.chunk.js"
+    "revision": "192a97fe46ec303430e4",
+    "url": "/f2e-w2-freecell/static/js/2.58e49733.chunk.js"
   },
   {
-    "revision": "decf8ad7f42bdc88248d",
-    "url": "/f2e-w2-freecell/static/js/main.d39e2818.chunk.js"
+    "revision": "8440e83a09104586797f",
+    "url": "/f2e-w2-freecell/static/js/main.efe571a0.chunk.js"
   },
   {
     "revision": "a61f2c53eb0dfd7317fc",
