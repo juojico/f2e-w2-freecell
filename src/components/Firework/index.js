@@ -1,64 +1,68 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { ReactComponent as CardType1 } from "../../slice_img/cards/cardtype_1.svg";
-import { ReactComponent as CardType2 } from "../../slice_img/cards/cardtype_2.svg";
-import { ReactComponent as CardType3 } from "../../slice_img/cards/cardtype_3.svg";
-import { ReactComponent as CardType4 } from "../../slice_img/cards/cardtype_4.svg";
 
 const ParticleBoxeMV = keyframes`
   10% {
-    margin-top: -50%;
+    margin-top: -40%;
   }
   12% {
-    margin-top: -52%;
+    margin-top: -42%;
   }
   100% {
-    margin-top: -20%;
+    margin-top: 0;
   }
 `;
+
 const ParticleMV = keyframes`
-  to {
-    top: 50%;
+  10% {
+    width: 10px;
+    margin-left: 50%;
     opacity: 1;
-    transform: scale(1);
+  }
+  30% {
+    width: 50%;
+    margin-left: 25%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    margin-left: 0;
+    opacity: 0;
   }
 `;
 
 const ParticleBox = styled.div`
   position: absolute;
+  height: 10px;
+  width: 500px;
   top: ${props => props.top};
   left: ${props => props.left};
-  width: 500px;
-  height: 500px;
-  margin-top: 0%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
   animation: ${ParticleBoxeMV} 3s linear infinite;
   z-index: 50;
 `;
 
 const Particle = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 150;
+  width: 6px;
+  height: 6px;
+  margin-left: 50%;
+  animation: ${ParticleMV} 3s linear infinite;
   &::before,
   &::after {
     position: absolute;
     content: "";
-    width: 10px;
-    height: 10px;
-    top: 100%;
-    left: 50%;
-    background: yellow;
+    width: 6px;
+    height: 6px;
+    top: 0%;
+    left: 0%;
+    background: #ff90c3;
     border-radius: 100%;
-    box-shadow: 0 0 6px yellow, 0 0 20px yellow;
-    opacity: 0;
-    transform: scale(0.2);
-    animation: ${ParticleMV} 3s 0.3s ease-in reverse infinite;
+    box-shadow: 0 0 6px #ff82bb, 0 0 20px #ff82bb;
+    opacity: 1;
   }
   &::after {
-    top: 0;
-    animation: ${ParticleMV} 3s 0.3s ease-in reverse infinite;
+    left: 100%;
   }
 `;
 
@@ -69,15 +73,15 @@ class Firework extends React.PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    const intervalFireWork = setInterval(() => {
       this.forceUpdate();
+      this.setState({ intervalFireWork });
     }, 3000);
   }
-  componentDidUpdate() {
-    setTimeout(() => {
-      this.forceUpdate();
-    }, 3000);
-    console.log("updata", this.props.open);
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalFireWork);
+    this.setState({ intervalFireWork: "" });
   }
 
   random = num => {
@@ -93,7 +97,8 @@ class Firework extends React.PureComponent {
           style={{
             transform: `scale(${this.random(0.5) + 0.5}) rotate(${this.random(
               180
-            )}deg)`
+            )}deg)`,
+            filter: `hue-rotate(${this.random(90)}deg) contrast(2)`
           }}
         />
       );
@@ -101,21 +106,17 @@ class Firework extends React.PureComponent {
     return particles;
   };
 
-  makeParticleBox = num => {
+  render() {
     return (
-      <React.Fragment>
+      <>
         <ParticleBox top={"90%"} left={"20%"}>
-          {this.makeParticle(num)}
+          {this.makeParticle(7)}
         </ParticleBox>
         <ParticleBox top={"90%"} left={"80%"}>
-          {this.makeParticle(num)}
+          {this.makeParticle(7)}
         </ParticleBox>
-      </React.Fragment>
+      </>
     );
-  };
-
-  render() {
-    return <React.Fragment>{this.makeParticleBox(7)}</React.Fragment>;
   }
 }
 

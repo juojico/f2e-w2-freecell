@@ -103,6 +103,11 @@ class Main extends React.PureComponent {
     this.reSizeWindow();
     const gameW = window.innerWidth;
     this.setState({ windowWidth: gameW });
+
+    console.log(
+      "TCL: Main -> componentDidMount -> localStorage.freecellBest",
+      JSON.parse(localStorage.freecellBest).time
+    );
   }
 
   reSizeWindow() {
@@ -137,6 +142,17 @@ class Main extends React.PureComponent {
     const isWin = this.state.finish.every(item => item.length > 12);
     if (isWin) {
       this.pause();
+      const local = localStorage.freecellBest;
+      if (!local || JSON.parse(local).time > this.state.time) {
+        localStorage.setItem(
+          "freecellBest",
+          JSON.stringify({
+            time: this.state.time,
+            move: this.state.move
+          })
+        );
+      }
+
       this.setState({ isWin: true });
     }
   }
@@ -190,6 +206,18 @@ class Main extends React.PureComponent {
       isdialogOpen: false,
       isWin: false,
       ...JSON.parse(stepsHistory[0])
+    });
+  }
+
+  newGame() {
+    this.play();
+    this.shuffle();
+    this.setState({
+      time: 0,
+      move: 0,
+      undoUsed: 0,
+      isdialogOpen: false,
+      isWin: false
     });
   }
 
@@ -263,26 +291,25 @@ class Main extends React.PureComponent {
 
       array.map((card, cardIndex) => {
         if (
-          (card.number - 1) === item.number &&
+          card.number - 1 === item.number &&
           !isSameType(card.type, item.type)
         ) {
-          return isMoveAble.push([index,cardIndex]);
+          return isMoveAble.push([index, cardIndex]);
         } else {
           return false;
         }
       });
-
     });
     console.log("TCL: Main -> onTips -> isMoveAble", isMoveAble);
     if (isMoveAble.length > 0) {
-      isMoveAble.forEach((item,index) => {
+      isMoveAble.forEach((item, index) => {
         setTimeout(() => {
           this.setState({ hint: item });
           console.log("TCL: Main -> onTips -> hint", this.state.hint);
-        }, 1000*index);
+        }, 1000 * index);
         setTimeout(() => {
-          this.setState({ hint: '' });
-        }, 1000*index+1000);
+          this.setState({ hint: "" });
+        }, 1000 * index + 1000);
       });
     }
   }
@@ -490,7 +517,8 @@ class Main extends React.PureComponent {
           time={this.state.time}
           move={this.state.move}
           undoUsed={this.state.undoUsed}
-          onClick={() => this.backToStart()}
+          onClick1={() => this.newGame()}
+          onClick2={() => this.backToStart()}
         />
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen || this.state.isWin}>
@@ -562,7 +590,9 @@ class Main extends React.PureComponent {
               <CardBox
                 key={`table${index}`}
                 type="table"
-                hint={(index===this.state.hint[0])||(index===this.state.hint[1])}
+                hint={
+                  index === this.state.hint[0] || index === this.state.hint[1]
+                }
                 onDragOver={e => this.handleDragOver(e, "table", index)}
                 onDrop={e => this.handleDrop(e)}
               >
@@ -588,8 +618,8 @@ class Main extends React.PureComponent {
                         "table",
                         index,
                         cardIndex
-                        )
-                      }
+                      )
+                    }
                   />
                 ))}
               </CardBox>

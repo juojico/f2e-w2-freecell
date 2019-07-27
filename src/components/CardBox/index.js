@@ -11,10 +11,16 @@ const CardBoxBg = styled.div`
   width: 135px;
   height: ${({ type }) => (type === "table" ? "none" : "140px")};
   min-height: 140px;
-  background: ${props =>
-    props.type === "finish"
-      ? "rgba(158, 153, 255, .5)"
-      : "rgba(158, 153, 255, .2)"};
+  background: ${({ type }) => {
+    switch (type) {
+      case "finish":
+        return "rgba(158, 153, 255, .5)";
+      case "storage":
+        return "rgba(158, 153, 255, .2)";
+      default:
+        return null;
+    }
+  }};
   border-radius: 16px;
   user-select: none;
   & > svg {
@@ -28,7 +34,10 @@ const CardBoxBg = styled.div`
     }
   }
   & > div:last-child {
-    ${({ hint }) => hint?'box-shadow: inset 0 0 10px rgb(255, 244, 60), 0 0 15px rgb(255, 244, 60);':''}
+    ${({ hint }) =>
+      hint
+        ? "box-shadow: inset 0 0 10px rgb(255, 244, 60), 0 0 15px rgb(255, 244, 60);"
+        : ""}
   }
 `;
 
@@ -52,7 +61,7 @@ const CardBox = ({
   children,
   onDragOver,
   onDrop,
-  hint=false,
+  hint = false,
   ...props
 }) => {
   return (

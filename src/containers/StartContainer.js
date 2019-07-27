@@ -39,7 +39,10 @@ const StartWrapper = styled.div`
   overflow: hidden;
   transition: 1.5s;
   z-index: 150;
-  ${({open})=>open?'clip-path: polygon(0% 0%,100% 0%,100% 100%,50% 100%,0 100%);':'clip-path: polygon(0% 0%,100% 0%,100% 0%,50% -200%,0 0%);'}
+  ${({ open }) =>
+    open
+      ? "clip-path: polygon(0% 0%,100% 0%,100% 100%,50% 100%,0 100%);"
+      : "clip-path: polygon(0% 0%,100% 0%,100% 0%,50% -200%,0 0%);"}
 `;
 
 const BottomBg = styled.div`
@@ -107,14 +110,14 @@ const TypesBox = styled.div`
     path {
       fill: #a1c8ff;
     }
-    &:nth-child(4n+2) {
-      animation: ${IconMV} 4s .2s infinite;
+    &:nth-child(4n + 2) {
+      animation: ${IconMV} 4s 0.2s infinite;
     }
-    &:nth-child(4n+3) {
-      animation: ${IconMV} 4s .4s infinite;
+    &:nth-child(4n + 3) {
+      animation: ${IconMV} 4s 0.4s infinite;
     }
     &:nth-child(4n) {
-      animation: ${IconMV} 4s .6s infinite;
+      animation: ${IconMV} 4s 0.6s infinite;
     }
   }
 `;
@@ -122,29 +125,36 @@ const TypesBox = styled.div`
 const StartContainer = ({ open, onClick, setDifficult, nowDifficult }) => {
   return (
     <StartWrapper open={open}>
-      <MainBox>
-        <MainBtn text='START' onClick={onClick} />
-        {DIFFICULT_LV.map((item, index) => {
-          const active = nowDifficult === index ? "true" : "false";
-          return (
-            <span
-              key={`difficult${index}`}
-              onClick={() => setDifficult(index)}
-              active={active}
-            >
-              {item}
-            </span>
-          );
-        })}
-        <h1>How to play?</h1>
-      </MainBox>
-      <TypesBox>
-        <CardType1s />
-        <CardType2s />
-        <CardType3s />
-        <CardType4s />
-      </TypesBox>
-      <BottomBg />
+      {open ? (
+        <>
+          {" "}
+          <MainBox>
+            <MainBtn text="START" onClick={onClick} />
+            {DIFFICULT_LV.map((item, index) => {
+              const active = nowDifficult === index ? "true" : "false";
+              return (
+                <span
+                  key={`difficult${index}`}
+                  onClick={() => setDifficult(index)}
+                  active={active}
+                >
+                  {item}
+                </span>
+              );
+            })}
+            <h1>How to play?</h1>
+          </MainBox>
+          <TypesBox>
+            <CardType1s />
+            <CardType2s />
+            <CardType3s />
+            <CardType4s />
+          </TypesBox>
+          <BottomBg />
+        </>
+      ) : (
+        ""
+      )}
     </StartWrapper>
   );
 };

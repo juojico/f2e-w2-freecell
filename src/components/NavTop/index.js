@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import freecell from "../../slice_img/ui/logo_freecell.svg";
+import { formatTime, formatMove } from "../../utils";
 
 const colorMove = keyframes`
     to {
@@ -33,32 +34,10 @@ const Board = styled.div`
   }
 `;
 
-const formatTime = time => {
-  let minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
-  let hours = 0;
-  if (minutes >= 60) {
-    hours = Math.floor(minutes / 60);
-    minutes = Math.floor(minutes % 60);
-  }
-  return (
-    (hours ? hours + ":" : "") +
-    (minutes < 10 ? "0" : "") +
-    minutes +
-    ":" +
-    (seconds < 10 ? "0" : "") +
-    seconds
-  );
-};
-
-const formatMove = move => {
-  return (move < 10 ? "0" : "") + move;
-};
-
-const NavTop = ({ time = 1234, move = 9 }) => {
+const NavTop = ({ time = 0, move = 0 }) => {
   return (
     <NavTopBg>
-      <img src={freecell} alt='freecell' />
+      <img src={freecell} alt="freecell" />
       <Board>
         <small>TIME:</small>
         <span>{formatTime(time)}</span>
