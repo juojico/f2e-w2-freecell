@@ -138,13 +138,14 @@ class Main extends React.PureComponent {
     if (isWin) {
       this.pause();
       const local = localStorage.freecellBest;
-      const setLocal = () => localStorage.setItem(
-        "freecellBest",
-        JSON.stringify({
-          time: this.state.time,
-          move: this.state.move
-        })
-      );
+      const setLocal = () =>
+        localStorage.setItem(
+          "freecellBest",
+          JSON.stringify({
+            time: this.state.time,
+            move: this.state.move
+          })
+        );
       if (!local) {
         setLocal();
       } else if (JSON.parse(local).time > this.state.time) {
@@ -425,7 +426,8 @@ class Main extends React.PureComponent {
         if (
           newLastCard.type === this.pickCard.type &&
           newLastCard.number === this.pickCard.number - 1 &&
-          this.pickCardsList < 1
+          this.pickCardsList < 1 &&
+          this.pickCard
         ) {
           newBoxContent[this.targetBox.index] = [
             ...newBoxContent[this.targetBox.index],
@@ -458,6 +460,9 @@ class Main extends React.PureComponent {
             this.originBox,
             this.targetBox
           );
+          break;
+        }
+        if (!this.pickCard) {
           break;
         }
 
