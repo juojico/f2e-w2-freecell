@@ -263,11 +263,12 @@ class Main extends React.PureComponent {
 
       array.map((card, cardIndex) => {
         if (
-          card.number - 1 === item.number &&
-          cardIndex !== index &&
+          (card.number - 1) === item.number &&
           !isSameType(card.type, item.type)
         ) {
           return isMoveAble.push([index,cardIndex]);
+        } else {
+          return false;
         }
       });
 
@@ -587,8 +588,8 @@ class Main extends React.PureComponent {
                         "table",
                         index,
                         cardIndex
-                      )
-                    }
+                        )
+                      }
                   />
                 ))}
               </CardBox>

@@ -16,7 +16,6 @@ const CardBoxBg = styled.div`
       ? "rgba(158, 153, 255, .5)"
       : "rgba(158, 153, 255, .2)"};
   border-radius: 16px;
-  ${({ hint }) => hint?'box-shadow: 0 0 10px yellow;':'box-shadow: none;'}
   user-select: none;
   & > svg {
     position: absolute;
@@ -27,6 +26,9 @@ const CardBoxBg = styled.div`
     path {
       fill: rgba(158, 153, 255, 0.6);
     }
+  }
+  & > div:last-child {
+    ${({ hint }) => hint?'box-shadow: inset 0 0 10px rgb(255, 244, 60), 0 0 15px rgb(255, 244, 60);':''}
   }
 `;
 

@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import Button from "../components/Button";
+import Firework from "../components/Firework";
+import DialogBg from "../components/Dialog/DialogBg";
 
 const MainBoxMV = keyframes`
     from {
@@ -52,6 +54,9 @@ const WinContainer = ({ open, onClick }) => {
         <h1>Congratulations! You Won the Game.</h1>
         <MainBtn text='RESTART' onClick={onClick} />
       </MainBox>
+
+      <Firework open={open} />
+      <DialogBg />
     </WinWrapper>
   );
 };

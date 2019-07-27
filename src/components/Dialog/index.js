@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Cloud from "../../slice_img/ui/img_cloud.svg";
+import DialogBg from "./DialogBg";
 import Button from "../../components/Button";
 
 const DialogWrapper = styled.div`
@@ -12,20 +12,6 @@ const DialogWrapper = styled.div`
   overflow: hidden;
   z-index: 100;
   transition: 0.5s ease-in-out;
-`;
-
-const DialogBg = styled.div`
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: url(${Cloud});
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: bottom;
-  pointer-events: none;
-  filter: blur(6px);
-  z-index: 90;
 `;
 
 const DialogBox = styled.div`
