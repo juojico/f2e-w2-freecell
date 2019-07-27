@@ -103,11 +103,6 @@ class Main extends React.PureComponent {
     this.reSizeWindow();
     const gameW = window.innerWidth;
     this.setState({ windowWidth: gameW });
-
-    console.log(
-      "TCL: Main -> componentDidMount -> localStorage.freecellBest",
-      JSON.parse(localStorage.freecellBest).time
-    );
   }
 
   reSizeWindow() {
@@ -143,14 +138,17 @@ class Main extends React.PureComponent {
     if (isWin) {
       this.pause();
       const local = localStorage.freecellBest;
-      if (!local || JSON.parse(local).time > this.state.time) {
-        localStorage.setItem(
-          "freecellBest",
-          JSON.stringify({
-            time: this.state.time,
-            move: this.state.move
-          })
-        );
+      const setLocal = localStorage.setItem(
+        "freecellBest",
+        JSON.stringify({
+          time: this.state.time,
+          move: this.state.move
+        })
+      );
+      if (!local) {
+        setLocal();
+      } else if (JSON.parse(local).time > this.state.time) {
+        setLocal();
       }
 
       this.setState({ isWin: true });
