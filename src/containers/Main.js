@@ -138,7 +138,7 @@ class Main extends React.PureComponent {
     if (isWin) {
       this.pause();
       const local = localStorage.freecellBest;
-      const setLocal = localStorage.setItem(
+      const setLocal = () => localStorage.setItem(
         "freecellBest",
         JSON.stringify({
           time: this.state.time,
@@ -322,6 +322,7 @@ class Main extends React.PureComponent {
     stepNowCards[key] = value;
     stepNowCards[key2] = value2;
     stepsHistory.push(JSON.stringify(stepNowCards));
+    this.winTheGame();
     this.setState({ data, data2, move: this.state.move + 1 });
     console.log(stepsHistory);
   }
@@ -346,7 +347,6 @@ class Main extends React.PureComponent {
           item.number !== this.pickCard.number
       );
       this.updateCardBox(name, setOriginBox, "finish", newBoxContent);
-      this.winTheGame();
     }
   }
 
@@ -444,7 +444,6 @@ class Main extends React.PureComponent {
             this.targetBox.name,
             newBoxContent
           );
-          this.winTheGame();
         }
         this.pickCardsList = [];
         break;
