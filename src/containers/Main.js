@@ -78,16 +78,6 @@ class Main extends React.PureComponent {
       isStartPage: true,
       isWin: false,
       dialogType: 0,
-      dialog: {
-        text: "",
-        btn1Text: "取消",
-        btn2Text: "確定",
-        btn1Click: () => false,
-        btn2Click: () => false,
-        btn1Type: "",
-        btn2Type: "",
-        only: false
-      },
       originPoker: POKER,
       ...JSON.parse(EMPTY_All),
       hint: []
@@ -240,9 +230,9 @@ class Main extends React.PureComponent {
 
   onUndo() {
     const nowStep = this.state.move;
-    if (nowStep) {
+    if (nowStep && (stepsHistory.length > 2 || nowStep === 1)) {
       this.setState({
-        ...JSON.parse(stepsHistory[nowStep - 1]),
+        ...JSON.parse(stepsHistory.slice(-2, -1)),
         move: nowStep - 1,
         undoUsed: this.state.undoUsed + 1
       });
@@ -301,10 +291,13 @@ class Main extends React.PureComponent {
     data[key] = value;
     let data2 = {};
     data2[key2] = value2;
-    const stepNowCards = JSON.parse(stepsHistory[this.state.move]);
+    const stepNowCards = JSON.parse(stepsHistory.slice(-1));
     stepNowCards[key] = value;
     stepNowCards[key2] = value2;
     stepsHistory.push(JSON.stringify(stepNowCards));
+    if (stepsHistory.length > 5) {
+      stepsHistory.splice(1, 1);
+    }
     this.winTheGame();
     this.setState({ data, data2, move: this.state.move + 1 });
     console.log(stepsHistory);
