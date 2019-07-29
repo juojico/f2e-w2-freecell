@@ -1,8 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import startPage from "../slice_img/ui/startpage_bg.jpg";
-import castle from "../slice_img/ui/img_castle.svg";
 import Button from "../components/Button";
+import castle from "../slice_img/ui/img_castle.svg";
+import startPage from "../slice_img/ui/startpage_bg.jpg";
 import { ReactComponent as CardType1s } from "../slice_img/cards/cardtype_1s.svg";
 import { ReactComponent as CardType2s } from "../slice_img/cards/cardtype_2s.svg";
 import { ReactComponent as CardType3s } from "../slice_img/cards/cardtype_3s.svg";

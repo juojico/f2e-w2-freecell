@@ -4,9 +4,9 @@ import Cards from "../components/Cards";
 import NavTop from "../components/NavTop";
 import CardBox from "../components/CardBox";
 import Controller from "../components/Controller";
-import Dialog from "../components/Dialog";
-import StartContainer from "./StartContainer";
 import WinContainer from "./WinContainer";
+import StartContainer from "./StartContainer";
+import DialogContainer from "./DialogContainer";
 
 const POKER = [];
 for (let n = 1; n <= 13; n++) {
@@ -77,6 +77,7 @@ class Main extends React.PureComponent {
       isdialogOpen: false,
       isStartPage: true,
       isWin: false,
+      dialogType: 0,
       dialog: {
         text: "",
         btn1Text: "取消",
@@ -224,14 +225,7 @@ class Main extends React.PureComponent {
   onStop() {
     this.pause();
     this.setState({
-      dialog: {
-        text: "是否放棄本局？",
-        btn1Text: "取消",
-        btn2Text: "確定",
-        btn1Click: () => this.backToGame(),
-        btn2Click: () => this.backToStart(),
-        only: false
-      },
+      dialogType: 1,
       isdialogOpen: true
     });
   }
@@ -239,12 +233,7 @@ class Main extends React.PureComponent {
   onPause() {
     this.pause();
     this.setState({
-      dialog: {
-        text: "時間暫停中",
-        btn1Text: "回到遊戲",
-        btn1Click: () => this.backToGame(),
-        only: true
-      },
+      dialogType: 2,
       isdialogOpen: true
     });
   }
@@ -264,14 +253,7 @@ class Main extends React.PureComponent {
   onRestart() {
     this.pause();
     this.setState({
-      dialog: {
-        text: "是否重新本局？",
-        btn1Text: "取消",
-        btn2Text: "確定",
-        btn1Click: () => this.backToGame(),
-        btn2Click: () => this.restartGame(),
-        only: false
-      },
+      dialogType: 3,
       isdialogOpen: true
     });
     stepsHistory.splice(1);
@@ -504,10 +486,64 @@ class Main extends React.PureComponent {
     }
   }
 
+  createCards(type) {
+    return this.state[type].map((item, index) => (
+      <CardBox
+        key={type + index}
+        type={type}
+        onDragOver={e => this.handleDragOver(e, type, index)}
+        onDrop={e => this.handleDrop(e)}
+        hint={
+          type === "table"
+            ? index === this.state.hint[0] || index === this.state.hint[1]
+            : null
+        }
+        cardType={type === "finish" ? index + 1 : null}
+      >
+        {item.map((cards, cardIndex) => (
+          <Cards
+            type={cards.type}
+            number={cards.number}
+            key={cards.type + "x" + cards.number}
+            delay={index}
+            isFinish={type === "finish" ? true : false}
+            onDoubleClick={
+              type === "finish"
+                ? null
+                : () =>
+                    this.handleDoubleClickItem(
+                      cards.type,
+                      cards.number,
+                      type,
+                      index,
+                      cardIndex
+                    )
+            }
+            onDragStart={() =>
+              this.handleDragStart(
+                cards.type,
+                cards.number,
+                type,
+                index,
+                cardIndex
+              )
+            }
+          />
+        ))}
+      </CardBox>
+    ));
+  }
+
   render() {
     return (
       <MainContainer windowWidth={this.state.windowWidth}>
-        <Dialog open={this.state.isdialogOpen} data={this.state.dialog} />
+        <DialogContainer
+          open={this.state.isdialogOpen}
+          dialogType={this.state.dialogType}
+          backToGame={() => this.backToGame()}
+          backToStart={() => this.backToStart()}
+          restartGame={() => this.restartGame()}
+        />
         <StartContainer
           open={this.state.isStartPage}
           onClick={() => this.onEnter()}
@@ -525,108 +561,10 @@ class Main extends React.PureComponent {
         <NavTop time={this.state.time} move={this.state.move} />
         <CardsTable blur={this.state.isdialogOpen || this.state.isWin}>
           <CardArea>
-            {this.state.storage.map((item, index) => (
-              <CardBox
-                key={`storage${index}`}
-                type="storage"
-                onDragOver={e => this.handleDragOver(e, "storage", index)}
-                onDrop={e => this.handleDrop(e)}
-              >
-                {item.map((cards, cardIndex) => (
-                  <Cards
-                    type={cards.type}
-                    number={cards.number}
-                    key={cards.type + "x" + cards.number}
-                    onDoubleClick={() =>
-                      this.handleDoubleClickItem(
-                        cards.type,
-                        cards.number,
-                        "storage",
-                        index,
-                        cardIndex
-                      )
-                    }
-                    onDragStart={() =>
-                      this.handleDragStart(
-                        cards.type,
-                        cards.number,
-                        "storage",
-                        index,
-                        cardIndex
-                      )
-                    }
-                  />
-                ))}
-              </CardBox>
-            ))}
-            {this.state.finish.map((item, index) => (
-              <CardBox
-                key={`finish${index}`}
-                type="finish"
-                cardType={index + 1}
-                onDragOver={e => this.handleDragOver(e, "finish", index)}
-                onDrop={e => this.handleDrop(e)}
-              >
-                {item.map((cards, cardIndex) => (
-                  <Cards
-                    type={cards.type}
-                    number={cards.number}
-                    key={cards.type + "x" + cards.number}
-                    isFinish
-                    onDragStart={() =>
-                      this.handleDragStart(
-                        cards.type,
-                        cards.number,
-                        "finish",
-                        index,
-                        cardIndex
-                      )
-                    }
-                  />
-                ))}
-              </CardBox>
-            ))}
+            {this.createCards("storage")}
+            {this.createCards("finish")}
           </CardArea>
-          <CardArea>
-            {this.state.table.map((item, index) => (
-              <CardBox
-                key={`table${index}`}
-                type="table"
-                hint={
-                  index === this.state.hint[0] || index === this.state.hint[1]
-                }
-                onDragOver={e => this.handleDragOver(e, "table", index)}
-                onDrop={e => this.handleDrop(e)}
-              >
-                {item.map((cards, cardIndex) => (
-                  <Cards
-                    type={cards.type}
-                    number={cards.number}
-                    key={cards.type + "x" + cards.number}
-                    delay={index}
-                    onDoubleClick={() =>
-                      this.handleDoubleClickItem(
-                        cards.type,
-                        cards.number,
-                        "table",
-                        index,
-                        cardIndex
-                      )
-                    }
-                    onDragStart={() =>
-                      this.handleDragStart(
-                        cards.type,
-                        cards.number,
-                        "table",
-                        index,
-                        cardIndex
-                      )
-                    }
-                  />
-                ))}
-              </CardBox>
-            ))}
-          </CardArea>
+          <CardArea>{this.createCards("table")}</CardArea>
         </CardsTable>
         <Controller
           hidden={

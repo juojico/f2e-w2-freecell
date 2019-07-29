@@ -36,7 +36,7 @@ const BtnBox = styled.div`
   align-item: center;
 `;
 
-const Dialog = ({ open, data }) => {
+const Dialog = ({ open, data, btn1Click, btn2Click }) => {
   return (
     <DialogWrapper open={open}>
       <DialogBox open={open}>
@@ -44,13 +44,13 @@ const Dialog = ({ open, data }) => {
         <BtnBox>
           <Button
             text={data.btn1Text}
-            onClick={data.btn1Click}
+            onClick={btn1Click}
             type={data.btn1Type}
           />
           {data.only ? null : (
             <Button
               text={data.btn2Text}
-              onClick={data.btn2Click}
+              onClick={btn2Click}
               type={data.btn2Type}
             />
           )}
